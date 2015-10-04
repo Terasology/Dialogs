@@ -1,0 +1,9 @@
+{
+    "id" : "Dialogs",
+    "version" : "0.1.0-SNAPSHOT",
+    "author" : "msteiger",
+    "displayName" : "Dialogs",
+    "description" : "Add in-game dialogs",
+    "dependencies" : [],
+    "serverSideOnly" : false
+}
