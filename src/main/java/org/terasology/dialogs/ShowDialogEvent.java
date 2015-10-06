@@ -16,11 +16,28 @@
 
 package org.terasology.dialogs;
 
+import org.terasology.dialogs.components.DialogComponent;
 import org.terasology.entitySystem.event.Event;
 
 /**
  * TODO Type description
  */
 public class ShowDialogEvent implements Event {
+
+    private final DialogComponent dialog;
+
+    /**
+     * @param dialogComponent
+     */
+    public ShowDialogEvent(DialogComponent dialogComponent) {
+        this.dialog = dialogComponent;
+    }
+
+    /**
+     * @return
+     */
+    public DialogComponent getDialog() {
+        return dialog;
+    }
 
 }

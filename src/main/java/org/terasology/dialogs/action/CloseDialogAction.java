@@ -14,9 +14,10 @@
  * limitations under the License.
  */
 
-package org.terasology.dialogs;
+package org.terasology.dialogs.action;
 
-import org.terasology.dialogs.action.PlayerAction;
+import org.terasology.dialogs.CloseDialogEvent;
+import org.terasology.entitySystem.entity.EntityRef;
 
 /**
  *
@@ -24,8 +25,8 @@ import org.terasology.dialogs.action.PlayerAction;
 public class CloseDialogAction implements PlayerAction {
 
     @Override
-    public void execute() {
-        // send close dialog event?
+    public void execute(EntityRef charEntity) {
+        charEntity.send(new CloseDialogEvent());
     }
 
 }

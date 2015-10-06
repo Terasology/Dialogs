@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *  http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -14,16 +14,13 @@
  * limitations under the License.
  */
 
-package org.terasology.dialogs.components;
+package org.terasology.dialogs;
 
-import org.terasology.dialogs.action.PlayerAction;
-import org.terasology.reflection.MappedContainer;
+import org.terasology.entitySystem.event.Event;
 
 /**
- *
+ * Fired when the dialog window should close.
  */
-@MappedContainer
-public class DialogResponse {
-    public String text;
-    public PlayerAction action;
+public class CloseDialogEvent implements Event {
+    // nothing to see here
 }

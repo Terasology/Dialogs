@@ -18,7 +18,6 @@ package org.terasology.dialogs.action;
 
 import java.util.Map;
 
-import org.terasology.dialogs.CloseDialogAction;
 import org.terasology.persistence.typeHandling.DeserializationContext;
 import org.terasology.persistence.typeHandling.PersistedData;
 import org.terasology.persistence.typeHandling.RegisterTypeHandler;

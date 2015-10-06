@@ -15,7 +15,14 @@
  */
 package org.terasology.dialogs;
 
+import java.util.Iterator;
+
+import org.terasology.assets.ResourceUrn;
+import org.terasology.dialogs.action.PlayerAction;
+import org.terasology.logic.players.LocalPlayer;
+import org.terasology.registry.In;
 import org.terasology.rendering.nui.CoreScreenLayer;
+import org.terasology.rendering.nui.UIWidget;
 import org.terasology.rendering.nui.layouts.ColumnLayout;
 import org.terasology.rendering.nui.widgets.UIButton;
 import org.terasology.rendering.nui.widgets.browser.data.html.HTMLDocument;
@@ -24,23 +31,19 @@ import org.terasology.rendering.nui.widgets.browser.ui.BrowserWidget;
 
 public class DialogScreen extends CoreScreenLayer {
 
-    private ColumnLayout categoryButtons;
-    private BrowserWidget browser;
+    public static final ResourceUrn ASSET_URI = new ResourceUrn("Dialogs:DialogScreen");
 
+    private ColumnLayout responseButtons;
+    private BrowserWidget browser;
+    private final HTMLDocument emptyPage = new HTMLDocument(null);
+
+    @In
+    private LocalPlayer localPlayer;
 
     @Override
     protected void initialise() {
 
-        categoryButtons = find("categoryButtons", ColumnLayout.class);
-        if (categoryButtons != null) {
-            for (int i = 0; i < 3; i++) {
-                UIButton newButton = new UIButton();
-                newButton.setText("Answer " + (i + 1));
-                String hyperlink = "option" + i;
-                newButton.subscribe(widget -> navigateTo(hyperlink));
-                categoryButtons.addWidget(newButton, null);
-            }
-        }
+        responseButtons = find("responseButtons", ColumnLayout.class);
 
         browser = find("browser", BrowserWidget.class);
         if (browser != null) {
@@ -62,5 +65,23 @@ public class DialogScreen extends CoreScreenLayer {
      */
     public void setDocument(HTMLDocument documentData) {
         browser.navigateTo(documentData);
+    }
+
+    public void reset() {
+        browser.navigateTo(emptyPage);
+
+        // HACK! implement ColumnLayout.removeWidget()
+        Iterator<UIWidget> it = responseButtons.iterator();
+        while (it.hasNext()) {
+            it.next();
+            it.remove();
+        }
+    }
+
+    public void addResponseOption(String text, PlayerAction action) {
+        UIButton newButton = new UIButton();
+        newButton.setText(text);
+        newButton.subscribe(widget -> action.execute(localPlayer.getCharacterEntity()));
+        responseButtons.addWidget(newButton, null);
     }
 }

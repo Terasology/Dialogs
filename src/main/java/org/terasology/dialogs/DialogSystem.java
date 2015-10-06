@@ -17,6 +17,7 @@
 package org.terasology.dialogs;
 
 import org.terasology.dialogs.components.DialogComponent;
+import org.terasology.dialogs.components.DialogResponse;
 import org.terasology.entitySystem.Component;
 import org.terasology.entitySystem.entity.EntityRef;
 import org.terasology.entitySystem.event.ReceiveEvent;
@@ -29,6 +30,7 @@ import org.terasology.registry.In;
 import org.terasology.rendering.nui.NUIManager;
 import org.terasology.rendering.nui.widgets.browser.data.basic.HTMLLikeParser;
 import org.terasology.rendering.nui.widgets.browser.data.html.HTMLDocument;
+import org.terasology.rendering.nui.widgets.browser.ui.style.ParagraphRenderStyle;
 
 /**
  * TODO Type description
@@ -39,33 +41,45 @@ public class DialogSystem extends BaseComponentSystem {
     @In
     private NUIManager nuiManager;
 
+    private ParagraphRenderStyle titleStyle = new DefaultTitleParagraphStyle();
+
+//    @ReceiveEvent
+//    public void onCollision(CollideEvent event, EntityRef beacon, DialogComponent dialogComponent) {
+//    }
+
     @ReceiveEvent
     public void onActivate(ActivationRequest event, EntityRef entity) {
 
         DialogComponent dialogComponent = event.getTarget().getComponent(DialogComponent.class);
 
-        for (Component c : event.getTarget().iterateComponents()) {
-            c.getClass();
-        }
-
         if (dialogComponent == null) {
             return;
         }
-//    @ReceiveEvent
-//    public void onCollision(CollideEvent event, EntityRef beacon, DialogComponent dialogComponent) {
 
-//    @ReceiveEvent
-//    public void showDialog(ShowDialogEvent event, EntityRef character) {
-        DialogScreen window = nuiManager.pushScreen("Dialogs:DialogScreen", DialogScreen.class);
+        entity.send(new ShowDialogEvent(dialogComponent));
+    }
 
-//        for (Prefab itemPrefab : itemsCategoryInGameHelpRegistry.getKnownPrefabs()) {
+    @ReceiveEvent
+    public void showDialog(ShowDialogEvent event, EntityRef character) {
+        DialogScreen window = nuiManager.pushScreen(DialogScreen.ASSET_URI, DialogScreen.class);
+        window.reset();
+
+        DialogComponent dialog = event.getDialog();
         HTMLDocument documentData = new HTMLDocument(null);
 
-        documentData.addParagraph(HTMLLikeParser.parseHTMLLikeParagraph(new DefaultTitleParagraphStyle(), dialogComponent.title));
-        for (String paragraphText : dialogComponent.paragraphText) {
+        documentData.addParagraph(HTMLLikeParser.parseHTMLLikeParagraph(titleStyle, dialog.title));
+        for (String paragraphText : dialog.paragraphText) {
             documentData.addParagraph(HTMLLikeParser.parseHTMLLikeParagraph(null, paragraphText));
         }
 
         window.setDocument(documentData);
+        for (DialogResponse r : dialog.responses) {
+            window.addResponseOption(r.text, r.action);
+        }
+    }
+
+    @ReceiveEvent
+    public void closeDialog(CloseDialogEvent event, EntityRef character) {
+        nuiManager.closeScreen(DialogScreen.ASSET_URI);
     }
 }

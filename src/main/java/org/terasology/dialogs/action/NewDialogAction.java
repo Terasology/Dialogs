@@ -16,6 +16,12 @@
 
 package org.terasology.dialogs.action;
 
+import org.terasology.asset.Assets;
+import org.terasology.dialogs.ShowDialogEvent;
+import org.terasology.dialogs.components.DialogComponent;
+import org.terasology.entitySystem.entity.EntityRef;
+import org.terasology.entitySystem.prefab.Prefab;
+
 /**
  *
  */
@@ -31,8 +37,10 @@ public class NewDialogAction implements PlayerAction {
     }
 
     @Override
-    public void execute() {
-        // send show dialog event?
+    public void execute(EntityRef charEntity) {
+        Prefab prefab = Assets.getPrefab(target).get();
+        DialogComponent dialog = prefab.getComponent(DialogComponent.class);
+        charEntity.send(new ShowDialogEvent(dialog));
     }
 
     /**
