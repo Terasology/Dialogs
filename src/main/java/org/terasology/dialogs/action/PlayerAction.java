@@ -13,17 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.terasology.dialogs;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.terasology.entitySystem.Component;
+package org.terasology.dialogs.action;
 
 /**
- * Use this to add a dialog
+ *
  */
-public final class DialogComponent implements Component {
-    public String title;
-    public List<String> paragraphText = new ArrayList<>();
+public interface PlayerAction {
+    void execute();
 }

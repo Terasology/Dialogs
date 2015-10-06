@@ -16,11 +16,14 @@
 
 package org.terasology.dialogs;
 
+import org.terasology.dialogs.components.DialogComponent;
+import org.terasology.entitySystem.Component;
 import org.terasology.entitySystem.entity.EntityRef;
 import org.terasology.entitySystem.event.ReceiveEvent;
 import org.terasology.entitySystem.systems.BaseComponentSystem;
 import org.terasology.entitySystem.systems.RegisterMode;
 import org.terasology.entitySystem.systems.RegisterSystem;
+import org.terasology.logic.characters.events.ActivationRequest;
 import org.terasology.physics.events.CollideEvent;
 import org.terasology.registry.In;
 import org.terasology.rendering.nui.NUIManager;
@@ -37,8 +40,19 @@ public class DialogSystem extends BaseComponentSystem {
     private NUIManager nuiManager;
 
     @ReceiveEvent
-    public void onCollision(CollideEvent event, EntityRef beacon, DialogComponent dialogComponent) {
-        EntityRef charEnt = event.getOtherEntity();
+    public void onActivate(ActivationRequest event, EntityRef entity) {
+
+        DialogComponent dialogComponent = event.getTarget().getComponent(DialogComponent.class);
+
+        for (Component c : event.getTarget().iterateComponents()) {
+            c.getClass();
+        }
+
+        if (dialogComponent == null) {
+            return;
+        }
+//    @ReceiveEvent
+//    public void onCollision(CollideEvent event, EntityRef beacon, DialogComponent dialogComponent) {
 
 //    @ReceiveEvent
 //    public void showDialog(ShowDialogEvent event, EntityRef character) {
