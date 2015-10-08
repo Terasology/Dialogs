@@ -1,0 +1,24 @@
+{
+    "type" : "Dialogs:NotificationPopup",
+    "contents" : {
+        "type" : "relativeLayout",
+        "contents" : [
+            {
+                "type" : "columnLayout",
+                "contents" : [
+                    {
+                        "type" : "UILabel",
+                        "skin" : "NotificationPopup",
+                        "id" : "notificationLabel"
+                    }
+                ],
+                "layoutInfo" : {
+                    "use-content-width" : true,
+                    "use-content-height" : true,
+                    "position-right" : {},
+                    "position-top" : {}
+                }
+            }
+        ]
+    }
+}
