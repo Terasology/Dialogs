@@ -1,48 +1,47 @@
 {
-  "type": "Dialogs:DialogScreen",
-  "contents": {
-    "type": "RowLayout",
-    "contents": [
-      {
-        "type": "RelativeLayout",
+    "type": "Dialogs:DialogScreen",
+    "skin": "Dialogs:DialogScreen",
+    "contents": {
+        "type": "RowLayout",
         "contents": [
-          {
-            "type": "ScrollableArea",
-            "id": "mainContent",
-            "content": {
-              "type": "BrowserWidget",
-              "id": "browser"
-            },
-            "layoutInfo": {
-              "width": 600,
-              "height": 500,
-              "position-vertical-center": {
-              },
-              "position-horizontal-center": {
-              }
+            {
+                "type": "RelativeLayout",
+                "contents": [
+                    {
+                        "type": "ScrollableArea",
+                        "id": "mainContent",
+                        "content": {
+                            "type": "BrowserWidget",
+                            "id": "browser"
+                        },
+                        "layoutInfo": {
+                            "width": 600,
+                            "height": 400,
+                            "position-vertical-center": {},
+                            "position-horizontal-center": {}
+                        }
+                    },
+                    {
+                        "type": "ColumnLayout",
+                        "id": "responseButtons",
+                        "layoutInfo": {
+                            "use-content-height": true,
+                            "position-top": {
+                                "target": "BOTTOM",
+                                "widget": "mainContent"
+                            },
+                            "position-left": {
+                                "target": "LEFT",
+                                "widget": "mainContent"
+                            },
+                            "position-right": {
+                                "target": "RIGHT",
+                                "widget": "mainContent"
+                            }
+                        }
+                    }
+                ]
             }
-          },
-          {
-            "type": "ColumnLayout",
-            "id": "categoryButtons",
-            "layoutInfo": {
-              "use-content-height": true,
-              "position-top": {
-                "target": "BOTTOM",
-                "widget": "mainContent"
-              },
-              "position-left": {
-                "target": "LEFT",
-                "widget": "mainContent"
-              },
-              "position-right": {
-                "target": "RIGHT",
-                "widget": "mainContent"
-              }
-            }
-          }
         ]
-      }
-    ]
-  }
+    }
 }

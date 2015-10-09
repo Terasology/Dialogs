@@ -1,0 +1,31 @@
+{
+    "inherit": "default",
+    "elements": {
+        "UIButton": {
+            "min-height": 32,
+            "text-align-horizontal": "left",
+            "modes": {
+                "disabled": {
+                    "text-color": "AAAAAAFF"
+                },
+                "hover": {
+                    "text-color": "FFFFFFFF",
+                    "font": "NotoSans-Bold"
+                }
+                "highlight": {
+                    "text-color": "FFFF00FF",
+                    "font": "NotoSans-Bold"
+                },
+                "warning": {
+                    "text-color": "FF4444FF"
+                },
+                "gameplay": {
+                    "text-color": "8B85FFFF"
+                },
+                "available": {
+                    "text-color": "FFFFFFFF"
+                }
+            }
+        }
+    }
+}

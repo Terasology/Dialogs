@@ -15,66 +15,45 @@
  */
 package org.terasology.notify;
 
-import org.terasology.engine.Time;
 import org.terasology.entitySystem.entity.EntityRef;
 import org.terasology.entitySystem.event.ReceiveEvent;
 import org.terasology.entitySystem.systems.BaseComponentSystem;
 import org.terasology.entitySystem.systems.RegisterMode;
 import org.terasology.entitySystem.systems.RegisterSystem;
-import org.terasology.entitySystem.systems.UpdateSubscriberSystem;
 import org.terasology.notify.ui.NotificationEvent;
-import org.terasology.notify.ui.NotificationPopup;
+import org.terasology.notify.ui.NotificationOverlay;
+import org.terasology.notify.ui.RemoveNotificationEvent;
 import org.terasology.registry.In;
 import org.terasology.rendering.nui.NUIManager;
 
 /**
  */
 @RegisterSystem(RegisterMode.CLIENT)
-public class NotificationSystem extends BaseComponentSystem implements UpdateSubscriberSystem {
+public class NotificationSystem extends BaseComponentSystem {
 
     @In
     private NUIManager nuiManager;
 
-    @In
-    private Time time;
+    private NotificationOverlay window;
 
-    private final static long FULL_ALPHA_TIME = 3000;
-    private final static long DIM_ALPHA_TIME = 1500;
-
-    private long lastNotificationReceived;
-
-    private NotificationPopup window;
-
-    @ReceiveEvent
-    public void newEntryNotificationReceived(NotificationEvent event, EntityRef character) {
-        lastNotificationReceived = time.getGameTimeInMs();
-        window = nuiManager.pushScreen(NotificationPopup.ASSET_URI, NotificationPopup.class);
-        window.setText(event.getText());
+    @Override
+    public void initialise() {
+        window = nuiManager.addOverlay(NotificationOverlay.ASSET_URI, NotificationOverlay.class);
     }
 
     @Override
-    public void update(float delta) {
-        if (window == null) {
-            return;
-        }
+    public void shutdown() {
+        nuiManager.closeScreen(window);
+    }
 
-        long currentTime = time.getGameTimeInMs();
-        long target = lastNotificationReceived + FULL_ALPHA_TIME;
+    @ReceiveEvent
+    public void newEntryNotificationReceived(NotificationEvent event, EntityRef character) {
+        window.addNotification(event.getText());
+    }
 
-        float alpha;
-        if (currentTime > target + DIM_ALPHA_TIME) {
-            alpha = 0f;
-            nuiManager.closeScreen(NotificationPopup.ASSET_URI);
-            window = null;
-        } else if (currentTime > target) {
-            alpha = 1f - (currentTime - target) / (float) DIM_ALPHA_TIME;
-        } else {
-            alpha = 1f;
-        }
-
-        if (alpha > 0f) {
-            window.setAlpha(alpha);
-        }
+    @ReceiveEvent
+    public void removeEntryNotificationReceived(RemoveNotificationEvent event, EntityRef character) {
+        window.removeNotification(event.getText());
     }
 }
 

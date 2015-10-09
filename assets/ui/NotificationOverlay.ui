@@ -1,15 +1,15 @@
 {
-    "type" : "Dialogs:NotificationPopup",
+    "type" : "Dialogs:NotificationOverlay",
     "contents" : {
         "type" : "relativeLayout",
+        "skin" : "NotificationOverlay",
         "contents" : [
             {
                 "type" : "columnLayout",
                 "contents" : [
                     {
-                        "type" : "UILabel",
-                        "skin" : "NotificationPopup",
-                        "id" : "notificationLabel"
+                        "type" : "UIList",
+                        "id" : "notificationList"
                     }
                 ],
                 "layoutInfo" : {
