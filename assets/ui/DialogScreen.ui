@@ -16,8 +16,10 @@
                         },
                         "layoutInfo": {
                             "width": 600,
-                            "height": 400,
-                            "position-vertical-center": {},
+                            "height": 300,
+                            "position-vertical-center": {
+                                "offset": -80
+                            },
                             "position-horizontal-center": {}
                         }
                     },

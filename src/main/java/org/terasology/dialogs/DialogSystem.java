@@ -16,7 +16,9 @@
 
 package org.terasology.dialogs;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.terasology.dialogs.components.DialogComponent;
 import org.terasology.dialogs.components.DialogResponse;
@@ -30,9 +32,15 @@ import org.terasology.input.Input;
 import org.terasology.input.InputSystem;
 import org.terasology.input.InputType;
 import org.terasology.input.cameraTarget.CameraTargetChangedEvent;
+import org.terasology.logic.characters.CharacterComponent;
 import org.terasology.logic.characters.events.ActivationRequest;
+import org.terasology.logic.common.DisplayNameComponent;
+import org.terasology.network.ClientComponent;
+import org.terasology.network.ColorComponent;
 import org.terasology.notify.ui.NotificationEvent;
 import org.terasology.notify.ui.RemoveNotificationEvent;
+import org.terasology.persistence.TemplateEngine;
+import org.terasology.persistence.TemplateEngineImpl;
 import org.terasology.registry.In;
 import org.terasology.rendering.FontColor;
 import org.terasology.rendering.nui.Color;
@@ -57,6 +65,16 @@ public class DialogSystem extends BaseComponentSystem {
     private String talkText;
 
     private ParagraphRenderStyle titleStyle = new DefaultTitleParagraphStyle();
+
+    private Map<String, String> mappings = new HashMap<String, String>();
+    private TemplateEngine templateEngine = new TemplateEngineImpl(id -> {
+        String result = mappings.get(id);
+        if (result != null) {
+            return result;
+        } else {
+            return "?" + id + "?";
+        }
+    });
 
     @Override
     public void initialise() {
@@ -99,14 +117,25 @@ public class DialogSystem extends BaseComponentSystem {
         DialogComponent dialog = event.getDialog();
         HTMLDocument documentData = new HTMLDocument(null);
 
-        documentData.addParagraph(HTMLLikeParser.parseHTMLLikeParagraph(titleStyle, dialog.title));
+        EntityRef controller = character.getComponent(CharacterComponent.class).controller; // the client
+        ClientComponent clientComponent = controller.getComponent(ClientComponent.class);
+        EntityRef clientInfo = clientComponent.clientInfo;
+
+        mappings.put("player.name", clientInfo.getComponent(DisplayNameComponent.class).name);
+        mappings.put("player.color", "0x" + clientInfo.getComponent(ColorComponent.class).color.toHex());
+
+        String title = templateEngine.transform(dialog.title);
+
+        documentData.addParagraph(HTMLLikeParser.parseHTMLLikeParagraph(titleStyle, title));
         for (String paragraphText : dialog.paragraphText) {
-            documentData.addParagraph(HTMLLikeParser.parseHTMLLikeParagraph(null, paragraphText));
+            String text = templateEngine.transform(paragraphText);
+            documentData.addParagraph(HTMLLikeParser.parseHTMLLikeParagraph(null, text));
         }
 
         window.setDocument(documentData);
         for (DialogResponse r : dialog.responses) {
-            window.addResponseOption(r.text, r.action);
+            String text = templateEngine.transform(r.text);
+            window.addResponseOption(text, r.action);
         }
     }
 

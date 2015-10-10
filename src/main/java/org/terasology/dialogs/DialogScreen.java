@@ -15,8 +15,6 @@
  */
 package org.terasology.dialogs;
 
-import java.util.Iterator;
-
 import org.terasology.assets.ResourceUrn;
 import org.terasology.dialogs.action.PlayerAction;
 import org.terasology.logic.players.LocalPlayer;
@@ -26,8 +24,9 @@ import org.terasology.rendering.nui.UIWidget;
 import org.terasology.rendering.nui.layouts.ColumnLayout;
 import org.terasology.rendering.nui.widgets.UIButton;
 import org.terasology.rendering.nui.widgets.browser.data.html.HTMLDocument;
-import org.terasology.rendering.nui.widgets.browser.ui.BrowserHyperlinkListener;
 import org.terasology.rendering.nui.widgets.browser.ui.BrowserWidget;
+
+import com.google.common.collect.Lists;
 
 public class DialogScreen extends CoreScreenLayer {
 
@@ -44,25 +43,12 @@ public class DialogScreen extends CoreScreenLayer {
     protected void initialise() {
 
         responseButtons = find("responseButtons", ColumnLayout.class);
-
         browser = find("browser", BrowserWidget.class);
-        if (browser != null) {
-            browser.addBrowserHyperlinkListener(new BrowserHyperlinkListener() {
-                @Override
-                public void hyperlinkClicked(String hyperlink) {
-                    navigateTo(hyperlink);
-                }
-            });
-        }
     }
 
     @Override
     public boolean isModal() {
         return true;
-    }
-
-    public void navigateTo(String hyperlink) {
-//        browser.navigateTo(hyperlink);
     }
 
     /**
@@ -75,12 +61,15 @@ public class DialogScreen extends CoreScreenLayer {
     public void reset() {
         browser.navigateTo(emptyPage);
 
-        // HACK! implement ColumnLayout.removeWidget()
-        Iterator<UIWidget> it = responseButtons.iterator();
-        while (it.hasNext()) {
-            it.next();
-            it.remove();
+        for (UIWidget widget : Lists.newArrayList(responseButtons)) {
+            responseButtons.removeWidget(widget);
         }
+//        // HACK! implement ColumnLayout.removeWidget()
+//        Iterator<UIWidget> it = responseButtons.iterator();
+//        while (it.hasNext()) {
+//            it.next();
+//            it.remove();
+//        }
     }
 
     public void addResponseOption(String text, PlayerAction action) {
