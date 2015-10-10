@@ -56,6 +56,11 @@ public class DialogScreen extends CoreScreenLayer {
         }
     }
 
+    @Override
+    public boolean isModal() {
+        return true;
+    }
+
     public void navigateTo(String hyperlink) {
 //        browser.navigateTo(hyperlink);
     }
