@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.terasology.dialogs.components.DialogComponent;
+import org.terasology.dialogs.components.DialogPage;
 import org.terasology.dialogs.components.DialogResponse;
 import org.terasology.engine.SimpleUri;
 import org.terasology.entitySystem.entity.EntityRef;
@@ -106,7 +107,7 @@ public class DialogSystem extends BaseComponentSystem {
             return;
         }
 
-        entity.send(new ShowDialogEvent(dialogComponent));
+        entity.send(new ShowDialogEvent(dialogComponent, dialogComponent.firstPage));
     }
 
     @ReceiveEvent
@@ -115,28 +116,38 @@ public class DialogSystem extends BaseComponentSystem {
         window.reset();
 
         DialogComponent dialog = event.getDialog();
+        DialogPage page = dialog.getPage(event.getPage());
+
+        if (page == null) {
+            return;
+        }
+
         HTMLDocument documentData = new HTMLDocument(null);
 
+        updateTemplateMappings(character);
+
+        String title = templateEngine.transform(page.title);
+
+        documentData.addParagraph(HTMLLikeParser.parseHTMLLikeParagraph(titleStyle, title));
+        for (String paragraphText : page.paragraphText) {
+            String text = templateEngine.transform(paragraphText);
+            documentData.addParagraph(HTMLLikeParser.parseHTMLLikeParagraph(null, text));
+        }
+
+        window.setDocument(documentData);
+        for (DialogResponse r : page.responses) {
+            String text = templateEngine.transform(r.text);
+            window.addResponseOption(dialog, text, r.action);
+        }
+    }
+
+    private void updateTemplateMappings(EntityRef character) {
         EntityRef controller = character.getComponent(CharacterComponent.class).controller; // the client
         ClientComponent clientComponent = controller.getComponent(ClientComponent.class);
         EntityRef clientInfo = clientComponent.clientInfo;
 
         mappings.put("player.name", clientInfo.getComponent(DisplayNameComponent.class).name);
         mappings.put("player.color", "0x" + clientInfo.getComponent(ColorComponent.class).color.toHex());
-
-        String title = templateEngine.transform(dialog.title);
-
-        documentData.addParagraph(HTMLLikeParser.parseHTMLLikeParagraph(titleStyle, title));
-        for (String paragraphText : dialog.paragraphText) {
-            String text = templateEngine.transform(paragraphText);
-            documentData.addParagraph(HTMLLikeParser.parseHTMLLikeParagraph(null, text));
-        }
-
-        window.setDocument(documentData);
-        for (DialogResponse r : dialog.responses) {
-            String text = templateEngine.transform(r.text);
-            window.addResponseOption(text, r.action);
-        }
     }
 
     @ReceiveEvent

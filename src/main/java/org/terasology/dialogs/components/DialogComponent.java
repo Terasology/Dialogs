@@ -24,8 +24,20 @@ import org.terasology.entitySystem.Component;
  * Use this to add a dialog
  */
 public final class DialogComponent implements Component {
-    public String id;
-    public String title;
-    public List<String> paragraphText;
-    public List<DialogResponse> responses;
+    public String firstPage;
+    public List<DialogPage> pages;
+
+    /**
+     * Finds a page by ID.
+     * @param id the page ID
+     * @return the corresponding page or <code>null</code>.
+     */
+    public DialogPage getPage(String id) {
+        for (DialogPage page : pages) {
+            if (id.equals(page.id)) {
+                return page;
+            }
+        }
+        return null;
+    }
 }

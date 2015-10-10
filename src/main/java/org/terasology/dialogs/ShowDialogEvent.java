@@ -25,12 +25,15 @@ import org.terasology.entitySystem.event.Event;
 public class ShowDialogEvent implements Event {
 
     private final DialogComponent dialog;
+    private final String page;
 
     /**
      * @param dialogComponent
+     * @param page
      */
-    public ShowDialogEvent(DialogComponent dialogComponent) {
+    public ShowDialogEvent(DialogComponent dialogComponent, String page) {
         this.dialog = dialogComponent;
+        this.page = page;
     }
 
     /**
@@ -40,4 +43,7 @@ public class ShowDialogEvent implements Event {
         return dialog;
     }
 
+    public String getPage() {
+        return page;
+    }
 }

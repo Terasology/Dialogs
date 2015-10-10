@@ -14,20 +14,19 @@
  * limitations under the License.
  */
 
-package org.terasology.dialogs.action;
+package org.terasology.dialogs.components;
 
-import org.terasology.dialogs.CloseDialogEvent;
-import org.terasology.dialogs.components.DialogComponent;
-import org.terasology.entitySystem.entity.EntityRef;
+import java.util.List;
+
+import org.terasology.reflection.MappedContainer;
 
 /**
- *
+ * TODO Type description
  */
-public class CloseDialogAction implements PlayerAction {
-
-    @Override
-    public void execute(DialogComponent dialog, EntityRef charEntity) {
-        charEntity.send(new CloseDialogEvent());
-    }
-
+@MappedContainer
+public class DialogPage {
+    public String id;
+    public String title;
+    public List<String> paragraphText;
+    public List<DialogResponse> responses;
 }

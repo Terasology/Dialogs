@@ -16,11 +16,12 @@
 
 package org.terasology.dialogs.action;
 
+import org.terasology.dialogs.components.DialogComponent;
 import org.terasology.entitySystem.entity.EntityRef;
 
 /**
  *
  */
 public interface PlayerAction {
-    void execute(EntityRef charEntity);
+    void execute(DialogComponent dialog, EntityRef charEntity);
 }
