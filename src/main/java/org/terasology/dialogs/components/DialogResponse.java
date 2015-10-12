@@ -16,6 +16,8 @@
 
 package org.terasology.dialogs.components;
 
+import java.util.List;
+
 import org.terasology.dialogs.action.PlayerAction;
 import org.terasology.reflection.MappedContainer;
 
@@ -25,5 +27,5 @@ import org.terasology.reflection.MappedContainer;
 @MappedContainer
 public class DialogResponse {
     public String text;
-    public PlayerAction action;
+    public List<PlayerAction> action;
 }

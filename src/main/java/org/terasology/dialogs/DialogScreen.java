@@ -15,6 +15,8 @@
  */
 package org.terasology.dialogs;
 
+import java.util.List;
+
 import org.terasology.assets.ResourceUrn;
 import org.terasology.dialogs.action.PlayerAction;
 import org.terasology.dialogs.components.DialogComponent;
@@ -73,10 +75,14 @@ public class DialogScreen extends CoreScreenLayer {
 //        }
     }
 
-    public void addResponseOption(DialogComponent dialog, String text, PlayerAction action) {
+    public void addResponseOption(DialogComponent dialog, String text, List<PlayerAction> actions) {
         UIButton newButton = new UIButton();
         newButton.setText(text);
-        newButton.subscribe(widget -> action.execute(dialog, localPlayer.getCharacterEntity()));
+        newButton.subscribe(widget -> {
+            for (PlayerAction action : actions) {
+                action.execute(dialog, localPlayer.getCharacterEntity());
+            }
+        });
         responseButtons.addWidget(newButton, null);
     }
 }
