@@ -20,6 +20,7 @@ import java.util.List;
 import org.terasology.assets.ResourceUrn;
 import org.terasology.dialogs.action.PlayerAction;
 import org.terasology.dialogs.components.DialogComponent;
+import org.terasology.entitySystem.entity.EntityRef;
 import org.terasology.logic.players.LocalPlayer;
 import org.terasology.registry.In;
 import org.terasology.rendering.nui.CoreScreenLayer;
@@ -38,9 +39,6 @@ public class DialogScreen extends CoreScreenLayer {
     private ColumnLayout responseButtons;
     private BrowserWidget browser;
     private final HTMLDocument emptyPage = new HTMLDocument(null);
-
-    @In
-    private LocalPlayer localPlayer;
 
     @Override
     protected void initialise() {
@@ -75,12 +73,12 @@ public class DialogScreen extends CoreScreenLayer {
 //        }
     }
 
-    public void addResponseOption(DialogComponent dialog, String text, List<PlayerAction> actions) {
+    public void addResponseOption(EntityRef charEnt, EntityRef talkTo, String text, List<PlayerAction> actions) {
         UIButton newButton = new UIButton();
         newButton.setText(text);
         newButton.subscribe(widget -> {
             for (PlayerAction action : actions) {
-                action.execute(dialog, localPlayer.getCharacterEntity());
+                action.execute(charEnt, talkTo);
             }
         });
         responseButtons.addWidget(newButton, null);

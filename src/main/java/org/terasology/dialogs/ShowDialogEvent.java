@@ -17,6 +17,7 @@
 package org.terasology.dialogs;
 
 import org.terasology.dialogs.components.DialogComponent;
+import org.terasology.entitySystem.entity.EntityRef;
 import org.terasology.entitySystem.event.Event;
 
 /**
@@ -24,15 +25,16 @@ import org.terasology.entitySystem.event.Event;
  */
 public class ShowDialogEvent implements Event {
 
-    private final DialogComponent dialog;
     private final String page;
+    private final EntityRef talkTo;
 
     /**
      * @param dialogComponent
+     * @param talkTo the other entity of the dialog
      * @param page
      */
-    public ShowDialogEvent(DialogComponent dialogComponent, String page) {
-        this.dialog = dialogComponent;
+    public ShowDialogEvent(EntityRef talkTo, String page) {
+        this.talkTo = talkTo;
         this.page = page;
     }
 
@@ -40,10 +42,17 @@ public class ShowDialogEvent implements Event {
      * @return
      */
     public DialogComponent getDialog() {
-        return dialog;
+        return talkTo.getComponent(DialogComponent.class);
     }
 
     public String getPage() {
         return page;
+    }
+
+    /**
+     * @return the other entity of the dialog
+     */
+    public EntityRef getTalkTo() {
+        return talkTo;
     }
 }

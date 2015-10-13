@@ -103,11 +103,9 @@ public class DialogSystem extends BaseComponentSystem {
 
         DialogComponent dialogComponent = event.getTarget().getComponent(DialogComponent.class);
 
-        if (dialogComponent == null) {
-            return;
+        if (dialogComponent != null) {
+            entity.send(new ShowDialogEvent(event.getTarget(), dialogComponent.firstPage));
         }
-
-        entity.send(new ShowDialogEvent(dialogComponent, dialogComponent.firstPage));
     }
 
     @ReceiveEvent
@@ -137,7 +135,7 @@ public class DialogSystem extends BaseComponentSystem {
         window.setDocument(documentData);
         for (DialogResponse r : page.responses) {
             String text = templateEngine.transform(r.text);
-            window.addResponseOption(dialog, text, r.action);
+            window.addResponseOption(character, event.getTalkTo(), text, r.action);
         }
     }
 

@@ -17,7 +17,6 @@
 package org.terasology.dialogs.action;
 
 import org.terasology.dialogs.CloseDialogEvent;
-import org.terasology.dialogs.components.DialogComponent;
 import org.terasology.entitySystem.entity.EntityRef;
 
 /**
@@ -26,7 +25,7 @@ import org.terasology.entitySystem.entity.EntityRef;
 public class CloseDialogAction implements PlayerAction {
 
     @Override
-    public void execute(DialogComponent dialog, EntityRef charEntity) {
+    public void execute(EntityRef charEntity, EntityRef talkTo) {
         charEntity.send(new CloseDialogEvent());
     }
 

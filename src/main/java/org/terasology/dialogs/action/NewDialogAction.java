@@ -35,8 +35,8 @@ public class NewDialogAction implements PlayerAction {
     }
 
     @Override
-    public void execute(DialogComponent dialog, EntityRef charEntity) {
-        charEntity.send(new ShowDialogEvent(dialog, target));
+    public void execute(EntityRef charEntity, EntityRef talkTo) {
+        charEntity.send(new ShowDialogEvent(talkTo, target));
     }
 
     /**
