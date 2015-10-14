@@ -19,13 +19,16 @@ package org.terasology.dialogs;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
+import org.terasology.assets.management.AssetManager;
 import org.terasology.dialogs.components.DialogComponent;
 import org.terasology.dialogs.components.DialogPage;
 import org.terasology.dialogs.components.DialogResponse;
 import org.terasology.engine.SimpleUri;
 import org.terasology.entitySystem.entity.EntityRef;
 import org.terasology.entitySystem.event.ReceiveEvent;
+import org.terasology.entitySystem.prefab.Prefab;
 import org.terasology.entitySystem.systems.BaseComponentSystem;
 import org.terasology.entitySystem.systems.RegisterMode;
 import org.terasology.entitySystem.systems.RegisterSystem;
@@ -63,6 +66,9 @@ public class DialogSystem extends BaseComponentSystem {
     @In
     private InputSystem inputSystem;
 
+    @In
+    private AssetManager assetManager;
+
     private String talkText;
 
     private ParagraphRenderStyle titleStyle = new DefaultTitleParagraphStyle();
@@ -86,13 +92,17 @@ public class DialogSystem extends BaseComponentSystem {
 
         EntityRef target = event.getNewTarget();
         DialogComponent dialogComponent = target.getComponent(DialogComponent.class);
-        if (talkText != null && dialogComponent == null) {
+        updateTalkNotification(entity, dialogComponent != null);
+    }
+
+    private void updateTalkNotification(EntityRef entity, boolean active) {
+        if (!active && talkText != null) {
             entity.send(new RemoveNotificationEvent(talkText));
             talkText = null;
             return;
         }
 
-        if (talkText == null && dialogComponent != null) {
+        if (active && talkText == null) {
             talkText = createTalkText();
             entity.send(new NotificationEvent(talkText));
         }
@@ -151,6 +161,25 @@ public class DialogSystem extends BaseComponentSystem {
     @ReceiveEvent
     public void closeDialog(CloseDialogEvent event, EntityRef character) {
         nuiManager.closeScreen(DialogScreen.ASSET_URI);
+    }
+
+    @ReceiveEvent
+    public void changeDialog(ChangeDialogEvent event, EntityRef character) {
+        EntityRef target = event.getTarget();
+        target.removeComponent(DialogComponent.class);
+        boolean active = false;
+
+        Optional<Prefab> opt2 = assetManager.getAsset(event.getPrefab(), Prefab.class);
+        if (opt2.isPresent()) {
+            Prefab prefab = opt2.get();
+            DialogComponent newDialog = prefab.getComponent(DialogComponent.class);
+            if (newDialog != null) {
+                target.addComponent(newDialog);
+                active = true;
+            }
+        }
+
+        updateTalkNotification(character, active);
     }
 
     private String createTalkText() {
