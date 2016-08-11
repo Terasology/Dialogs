@@ -15,14 +15,10 @@
  */
 package org.terasology.dialogs;
 
-import java.util.List;
-
+import com.google.common.collect.Lists;
 import org.terasology.assets.ResourceUrn;
 import org.terasology.dialogs.action.PlayerAction;
-import org.terasology.dialogs.components.DialogComponent;
 import org.terasology.entitySystem.entity.EntityRef;
-import org.terasology.logic.players.LocalPlayer;
-import org.terasology.registry.In;
 import org.terasology.rendering.nui.CoreScreenLayer;
 import org.terasology.rendering.nui.UIWidget;
 import org.terasology.rendering.nui.layouts.ColumnLayout;
@@ -30,7 +26,7 @@ import org.terasology.rendering.nui.widgets.UIButton;
 import org.terasology.rendering.nui.widgets.browser.data.html.HTMLDocument;
 import org.terasology.rendering.nui.widgets.browser.ui.BrowserWidget;
 
-import com.google.common.collect.Lists;
+import java.util.List;
 
 public class DialogScreen extends CoreScreenLayer {
 
@@ -41,7 +37,7 @@ public class DialogScreen extends CoreScreenLayer {
     private final HTMLDocument emptyPage = new HTMLDocument(null);
 
     @Override
-    protected void initialise() {
+    public void initialise() {
 
         responseButtons = find("responseButtons", ColumnLayout.class);
         browser = find("browser", BrowserWidget.class);
