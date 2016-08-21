@@ -35,10 +35,10 @@ import org.terasology.entitySystem.systems.RegisterSystem;
 import org.terasology.input.Input;
 import org.terasology.input.InputSystem;
 import org.terasology.input.InputType;
-import org.terasology.input.cameraTarget.CameraTargetChangedEvent;
 import org.terasology.logic.characters.CharacterComponent;
 import org.terasology.logic.characters.events.ActivationRequest;
 import org.terasology.logic.common.DisplayNameComponent;
+import org.terasology.logic.players.PlayerTargetChangedEvent;
 import org.terasology.network.ClientComponent;
 import org.terasology.network.ColorComponent;
 import org.terasology.notify.ui.NotificationEvent;
@@ -88,7 +88,7 @@ public class DialogSystem extends BaseComponentSystem {
     }
 
     @ReceiveEvent
-    public void onTarget(CameraTargetChangedEvent event, EntityRef entity) {
+    public void onTarget(PlayerTargetChangedEvent event, EntityRef entity) {
 
         EntityRef target = event.getNewTarget();
         DialogComponent dialogComponent = target.getComponent(DialogComponent.class);
