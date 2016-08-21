@@ -16,16 +16,15 @@
 
 package org.terasology.dialogs.action;
 
-import java.util.Iterator;
-
 import org.terasology.engine.bootstrap.ClassMetaLibrary;
 import org.terasology.persistence.typeHandling.DeserializationContext;
 import org.terasology.persistence.typeHandling.DeserializationException;
 import org.terasology.persistence.typeHandling.PersistedData;
 import org.terasology.persistence.typeHandling.RegisterTypeHandler;
 import org.terasology.persistence.typeHandling.SerializationContext;
-import org.terasology.persistence.typeHandling.SerializationException;
 import org.terasology.persistence.typeHandling.SimpleTypeHandler;
+
+import java.util.Iterator;
 
 @RegisterTypeHandler
 public class PlayerActionTypeHandler extends SimpleTypeHandler<PlayerAction> {
@@ -38,7 +37,17 @@ public class PlayerActionTypeHandler extends SimpleTypeHandler<PlayerAction> {
 
     @Override
     public PersistedData serialize(PlayerAction value, SerializationContext context) {
-        throw new SerializationException("No type handler found for " + value);
+        String typeId = value.getClass().getSimpleName();
+        Iterable<Class<? extends PlayerAction>> types = classLibrary.getSubtypesOf(PlayerAction.class, typeId);
+        Iterator<Class<? extends PlayerAction>> it = types.iterator();
+        if (!it.hasNext()) {
+            throw new DeserializationException("Could not find class metadata for '" + typeId + "'");
+        }
+        Class<? extends PlayerAction> type = it.next();
+        if (it.hasNext()) {
+            throw new DeserializationException("Ambiguous type: '" + typeId + "' - found " + types);
+        }
+        return context.create(value, type);
     }
 
     @Override
