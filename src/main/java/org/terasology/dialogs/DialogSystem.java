@@ -26,6 +26,7 @@ import org.terasology.dialogs.components.DialogComponent;
 import org.terasology.dialogs.components.DialogPage;
 import org.terasology.dialogs.components.DialogResponse;
 import org.terasology.engine.SimpleUri;
+import org.terasology.engine.subsystem.config.BindsSubsystem;
 import org.terasology.entitySystem.entity.EntityRef;
 import org.terasology.entitySystem.event.ReceiveEvent;
 import org.terasology.entitySystem.prefab.Prefab;
@@ -33,7 +34,6 @@ import org.terasology.entitySystem.systems.BaseComponentSystem;
 import org.terasology.entitySystem.systems.RegisterMode;
 import org.terasology.entitySystem.systems.RegisterSystem;
 import org.terasology.input.Input;
-import org.terasology.input.InputSystem;
 import org.terasology.input.InputType;
 import org.terasology.logic.characters.CharacterComponent;
 import org.terasology.logic.characters.events.ActivationRequest;
@@ -64,7 +64,7 @@ public class DialogSystem extends BaseComponentSystem {
     private NUIManager nuiManager;
 
     @In
-    private InputSystem inputSystem;
+    BindsSubsystem bindsSubsystem;
 
     @In
     private AssetManager assetManager;
@@ -184,7 +184,7 @@ public class DialogSystem extends BaseComponentSystem {
 
     private String createTalkText() {
         SimpleUri id = new SimpleUri("engine:frob");
-        List<Input> inputs = inputSystem.getInputsForBindButton(id);
+        List<Input> inputs = bindsSubsystem.getInputsForBindButton(id);
         String text = "Press ";
         for (Input input : inputs) {
             if (input.getType() == InputType.KEY) {
