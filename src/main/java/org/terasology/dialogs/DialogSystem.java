@@ -34,7 +34,6 @@ import org.terasology.entitySystem.systems.BaseComponentSystem;
 import org.terasology.entitySystem.systems.RegisterMode;
 import org.terasology.entitySystem.systems.RegisterSystem;
 import org.terasology.input.Input;
-import org.terasology.input.InputSystem;
 import org.terasology.input.InputType;
 import org.terasology.logic.characters.CharacterComponent;
 import org.terasology.logic.characters.events.ActivationRequest;
