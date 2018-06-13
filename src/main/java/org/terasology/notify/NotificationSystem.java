@@ -1,5 +1,5 @@
 /*
- * Copyright 2015 MovingBlocks
+ * Copyright 2018 MovingBlocks
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,24 +21,22 @@ import org.terasology.entitySystem.systems.BaseComponentSystem;
 import org.terasology.entitySystem.systems.RegisterMode;
 import org.terasology.entitySystem.systems.RegisterSystem;
 import org.terasology.notify.ui.NotificationEvent;
-import org.terasology.notify.ui.NotificationOverlay;
+import org.terasology.notify.ui.DialogNotificationOverlay;
 import org.terasology.notify.ui.RemoveNotificationEvent;
 import org.terasology.registry.In;
 import org.terasology.rendering.nui.NUIManager;
 
-/**
- */
 @RegisterSystem(RegisterMode.CLIENT)
 public class NotificationSystem extends BaseComponentSystem {
 
     @In
     private NUIManager nuiManager;
 
-    private NotificationOverlay window;
+    private DialogNotificationOverlay window;
 
     @Override
     public void initialise() {
-        window = nuiManager.addOverlay(NotificationOverlay.ASSET_URI, NotificationOverlay.class);
+        window = nuiManager.addOverlay(DialogNotificationOverlay.ASSET_URI, DialogNotificationOverlay.class);
     }
 
     @Override
@@ -56,4 +54,3 @@ public class NotificationSystem extends BaseComponentSystem {
         window.removeNotification(event.getText());
     }
 }
-

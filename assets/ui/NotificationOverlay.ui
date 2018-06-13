@@ -1,8 +1,8 @@
 {
-    "type" : "Dialogs:NotificationOverlay",
+    "type" : "Dialogs:DialogNotificationOverlay",
     "contents" : {
         "type" : "relativeLayout",
-        "skin" : "NotificationOverlay",
+        "skin" : "DialogNotificationOverlay",
         "contents" : [
             {
                 "type" : "columnLayout",

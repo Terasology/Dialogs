@@ -1,6 +1,6 @@
 {
     "id" : "Dialogs",
-    "version" : "0.1.0-SNAPSHOT",
+    "version" : "0.1.1-SNAPSHOT",
     "author" : "msteiger",
     "displayName" : "Dialogs",
     "description" : "Add in-game dialogs between player and NPC",
