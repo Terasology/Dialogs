@@ -16,18 +16,19 @@
 
 package org.terasology.dialogs.action;
 
-import com.google.common.collect.ImmutableMap;
+import java.util.Map;
+
 import org.terasology.persistence.typeHandling.DeserializationContext;
 import org.terasology.persistence.typeHandling.PersistedData;
 import org.terasology.persistence.typeHandling.PersistedDataMap;
 import org.terasology.persistence.typeHandling.RegisterTypeHandler;
 import org.terasology.persistence.typeHandling.SerializationContext;
-import org.terasology.persistence.typeHandling.TypeHandler;
+import org.terasology.persistence.typeHandling.SimpleTypeHandler;
 
-import java.util.Map;
+import com.google.common.collect.ImmutableMap;
 
 @RegisterTypeHandler
-public class NewDialogActionTypeHandler implements TypeHandler<NewDialogAction> {
+public class NewDialogActionTypeHandler extends SimpleTypeHandler<NewDialogAction> {
 
     @Override
     public PersistedData serialize(NewDialogAction action, SerializationContext context) {

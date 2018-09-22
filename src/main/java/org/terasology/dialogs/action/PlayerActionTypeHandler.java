@@ -22,12 +22,12 @@ import org.terasology.persistence.typeHandling.DeserializationException;
 import org.terasology.persistence.typeHandling.PersistedData;
 import org.terasology.persistence.typeHandling.RegisterTypeHandler;
 import org.terasology.persistence.typeHandling.SerializationContext;
-import org.terasology.persistence.typeHandling.TypeHandler;
+import org.terasology.persistence.typeHandling.SimpleTypeHandler;
 
 import java.util.Iterator;
 
 @RegisterTypeHandler
-public class PlayerActionTypeHandler implements TypeHandler<PlayerAction> {
+public class PlayerActionTypeHandler extends SimpleTypeHandler<PlayerAction> {
 
     private final ClassMetaLibrary classLibrary;
 

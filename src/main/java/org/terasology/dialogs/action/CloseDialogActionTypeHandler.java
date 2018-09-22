@@ -16,17 +16,18 @@
 
 package org.terasology.dialogs.action;
 
-import com.google.common.collect.ImmutableMap;
+import java.util.Map;
+
 import org.terasology.persistence.typeHandling.DeserializationContext;
 import org.terasology.persistence.typeHandling.PersistedData;
 import org.terasology.persistence.typeHandling.RegisterTypeHandler;
 import org.terasology.persistence.typeHandling.SerializationContext;
-import org.terasology.persistence.typeHandling.TypeHandler;
+import org.terasology.persistence.typeHandling.SimpleTypeHandler;
 
-import java.util.Map;
+import com.google.common.collect.ImmutableMap;
 
 @RegisterTypeHandler
-public class CloseDialogActionTypeHandler implements TypeHandler<CloseDialogAction> {
+public class CloseDialogActionTypeHandler extends SimpleTypeHandler<CloseDialogAction> {
 
     @Override
     public PersistedData serialize(CloseDialogAction action, SerializationContext context) {
