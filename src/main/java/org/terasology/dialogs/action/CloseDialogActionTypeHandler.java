@@ -30,20 +30,12 @@ import org.terasology.persistence.typeHandling.TypeHandler;
 public class CloseDialogActionTypeHandler extends TypeHandler<CloseDialogAction> {
 
     @Override
-    public PersistedData serialize(CloseDialogAction action, PersistedDataSerializer context) {
-        Map<String, PersistedData> data = ImmutableMap.of(
-                "type", context.serialize(action.getClass().getSimpleName()));
-
-        return context.serialize(data);
+    public PersistedData serializeNonNull(CloseDialogAction action, PersistedDataSerializer context) {
+        return context.serializeNull();
     }
 
     @Override
     public Optional<CloseDialogAction> deserialize(PersistedData data) {
-        return Optional.empty();
-    }
-
-    @Override
-    protected PersistedData serializeNonNull(CloseDialogAction value, PersistedDataSerializer serializer) {
-        return null;
+        return Optional.of(new CloseDialogAction());
     }
 }

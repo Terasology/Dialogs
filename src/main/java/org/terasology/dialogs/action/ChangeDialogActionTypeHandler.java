@@ -28,30 +28,18 @@ public class ChangeDialogActionTypeHandler extends TypeHandler<ChangeDialogActio
 
     @Override
     protected PersistedData serializeNonNull(ChangeDialogAction value, PersistedDataSerializer serializer) {
-        return null;
+        return serializer.serializeNull();
     }
 
     @Override
     public PersistedData serialize(ChangeDialogAction action, PersistedDataSerializer context) {
-        Map<String, PersistedData> data = ImmutableMap.of(
-                "type", context.serialize(action.getClass().getSimpleName()),
-                "prefab", context.serialize(action.getPrefab()));
-
-        return context.serialize(data);
+        return context.serialize(action.getPrefab());
     }
 
     @Override
     public Optional<ChangeDialogAction> deserialize(PersistedData data) {
         PersistedDataMap root = data.getAsValueMap();
         String prefab = root.get("prefab").getAsString();
-        return Optional.ofNullable(new ChangeDialogAction(prefab));
+        return Optional.of(new ChangeDialogAction(prefab));
     }
-
-    /*@Override
-    public ChangeDialogAction deserialize(PersistedData data) {
-        PersistedDataMap root = data.getAsValueMap();
-        String prefab = root.get("prefab").getAsString();
-        return new ChangeDialogAction(prefab);
-    }*/
-
 }

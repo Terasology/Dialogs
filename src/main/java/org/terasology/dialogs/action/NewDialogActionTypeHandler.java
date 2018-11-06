@@ -27,23 +27,14 @@ import com.google.common.collect.ImmutableMap;
 public class NewDialogActionTypeHandler extends TypeHandler<NewDialogAction> {
 
     @Override
-    public PersistedData serialize(NewDialogAction action, PersistedDataSerializer context) {
-        Map<String, PersistedData> data = ImmutableMap.of(
-                "type", context.serialize(action.getClass().getSimpleName()),
-                "target", context.serialize(action.getTarget()));
-
-        return context.serialize(data);
+    public PersistedData serializeNonNull(NewDialogAction action, PersistedDataSerializer context) {
+        return context.serialize(action.getTarget());
     }
 
     @Override
     public Optional<NewDialogAction> deserialize(PersistedData data) {
         PersistedDataMap root = data.getAsValueMap();
         String target = root.get("target").getAsString();
-        return Optional.ofNullable(new NewDialogAction(target));
-    }
-
-    @Override
-    protected PersistedData serializeNonNull(NewDialogAction value, PersistedDataSerializer serializer) {
-        return null;
+        return Optional.of(new NewDialogAction(target));
     }
 }
