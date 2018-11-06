@@ -32,7 +32,7 @@ public class NewDialogActionTypeHandler extends TypeHandler<NewDialogAction> {
                 "type", context.serialize(action.getClass().getSimpleName()),
                 "target", context.serialize(action.getTarget()));
 
-        return context.serialize(data);
+        return context.serialize(data);.
     }
 
     @Override

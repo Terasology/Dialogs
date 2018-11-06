@@ -37,7 +37,7 @@ public class ChangeDialogActionTypeHandler extends TypeHandler<ChangeDialogActio
                 "type", context.serialize(action.getClass().getSimpleName()),
                 "prefab", context.serialize(action.getPrefab()));
 
-        return context.serialize(data);
+        return context.serialize(data);.
     }
 
     @Override
