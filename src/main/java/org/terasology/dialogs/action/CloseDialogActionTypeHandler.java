@@ -17,29 +17,33 @@
 package org.terasology.dialogs.action;
 
 import java.util.Map;
+import java.util.Optional;
 
-import org.terasology.persistence.typeHandling.DeserializationContext;
 import org.terasology.persistence.typeHandling.PersistedData;
-import org.terasology.persistence.typeHandling.RegisterTypeHandler;
-import org.terasology.persistence.typeHandling.SerializationContext;
-import org.terasology.persistence.typeHandling.SimpleTypeHandler;
+import org.terasology.persistence.typeHandling.PersistedDataSerializer;
 
 import com.google.common.collect.ImmutableMap;
+import org.terasology.persistence.typeHandling.RegisterTypeHandler;
+import org.terasology.persistence.typeHandling.TypeHandler;
 
 @RegisterTypeHandler
-public class CloseDialogActionTypeHandler extends SimpleTypeHandler<CloseDialogAction> {
+public class CloseDialogActionTypeHandler extends TypeHandler<CloseDialogAction> {
 
     @Override
-    public PersistedData serialize(CloseDialogAction action, SerializationContext context) {
+    public PersistedData serialize(CloseDialogAction action, PersistedDataSerializer context) {
         Map<String, PersistedData> data = ImmutableMap.of(
-                "type", context.create(action.getClass().getSimpleName()));
+                "type", context.serialize(action.getClass().getSimpleName()));
 
-        return context.create(data);
+        return context.serialize(data);
     }
 
     @Override
-    public CloseDialogAction deserialize(PersistedData data, DeserializationContext context) {
-        return new CloseDialogAction();
+    public Optional<CloseDialogAction> deserialize(PersistedData data) {
+        return Optional.empty();
     }
 
+    @Override
+    protected PersistedData serializeNonNull(CloseDialogAction value, PersistedDataSerializer serializer) {
+        return null;
+    }
 }

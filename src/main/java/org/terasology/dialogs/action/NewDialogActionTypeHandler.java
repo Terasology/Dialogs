@@ -17,33 +17,33 @@
 package org.terasology.dialogs.action;
 
 import java.util.Map;
+import java.util.Optional;
 
-import org.terasology.persistence.typeHandling.DeserializationContext;
-import org.terasology.persistence.typeHandling.PersistedData;
-import org.terasology.persistence.typeHandling.PersistedDataMap;
-import org.terasology.persistence.typeHandling.RegisterTypeHandler;
-import org.terasology.persistence.typeHandling.SerializationContext;
-import org.terasology.persistence.typeHandling.SimpleTypeHandler;
+import org.terasology.persistence.typeHandling.*;
 
 import com.google.common.collect.ImmutableMap;
 
 @RegisterTypeHandler
-public class NewDialogActionTypeHandler extends SimpleTypeHandler<NewDialogAction> {
+public class NewDialogActionTypeHandler extends TypeHandler<NewDialogAction> {
 
     @Override
-    public PersistedData serialize(NewDialogAction action, SerializationContext context) {
+    public PersistedData serialize(NewDialogAction action, PersistedDataSerializer context) {
         Map<String, PersistedData> data = ImmutableMap.of(
-                "type", context.create(action.getClass().getSimpleName()),
-                "target", context.create(action.getTarget()));
+                "type", context.serialize(action.getClass().getSimpleName()),
+                "target", context.serialize(action.getTarget()));
 
-        return context.create(data);
+        return context.serialize(data);
     }
 
     @Override
-    public NewDialogAction deserialize(PersistedData data, DeserializationContext context) {
+    public Optional<NewDialogAction> deserialize(PersistedData data) {
         PersistedDataMap root = data.getAsValueMap();
         String target = root.get("target").getAsString();
-        return new NewDialogAction(target);
+        return Optional.ofNullable(new NewDialogAction(target));
     }
 
+    @Override
+    protected PersistedData serializeNonNull(NewDialogAction value, PersistedDataSerializer serializer) {
+        return null;
+    }
 }

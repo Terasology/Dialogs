@@ -17,17 +17,13 @@
 package org.terasology.dialogs.action;
 
 import org.terasology.engine.bootstrap.ClassMetaLibrary;
-import org.terasology.persistence.typeHandling.DeserializationContext;
-import org.terasology.persistence.typeHandling.DeserializationException;
-import org.terasology.persistence.typeHandling.PersistedData;
-import org.terasology.persistence.typeHandling.RegisterTypeHandler;
-import org.terasology.persistence.typeHandling.SerializationContext;
-import org.terasology.persistence.typeHandling.SimpleTypeHandler;
+import org.terasology.persistence.typeHandling.*;
 
 import java.util.Iterator;
+import java.util.Optional;
 
 @RegisterTypeHandler
-public class PlayerActionTypeHandler extends SimpleTypeHandler<PlayerAction> {
+public class PlayerActionTypeHandler extends TypeHandler<PlayerAction> {
 
     private final ClassMetaLibrary classLibrary;
 
@@ -36,7 +32,7 @@ public class PlayerActionTypeHandler extends SimpleTypeHandler<PlayerAction> {
     }
 
     @Override
-    public PersistedData serialize(PlayerAction value, SerializationContext context) {
+    public PersistedData serialize(PlayerAction value, PersistedDataSerializer context) {
         String typeId = value.getClass().getSimpleName();
         Iterable<Class<? extends PlayerAction>> types = classLibrary.getSubtypesOf(PlayerAction.class, typeId);
         Iterator<Class<? extends PlayerAction>> it = types.iterator();
@@ -47,11 +43,12 @@ public class PlayerActionTypeHandler extends SimpleTypeHandler<PlayerAction> {
         if (it.hasNext()) {
             throw new DeserializationException("Ambiguous type: '" + typeId + "' - found " + types);
         }
-        return context.create(value, type);
+
+        return context.serialize(value, type);
     }
 
     @Override
-    public PlayerAction deserialize(PersistedData data, DeserializationContext context) {
+    public Optional<PlayerAction> deserialize(PersistedData data) {
         String typeId = data.getAsValueMap().getAsString("type");
         Iterable<Class<? extends PlayerAction>> types = classLibrary.getSubtypesOf(PlayerAction.class, typeId);
         Iterator<Class<? extends PlayerAction>> it = types.iterator();
@@ -62,6 +59,11 @@ public class PlayerActionTypeHandler extends SimpleTypeHandler<PlayerAction> {
         if (it.hasNext()) {
             throw new DeserializationException("Ambiguous type: '" + typeId + "' - found " + types);
         }
-        return context.deserializeAs(data, type);
+        return data.(data, type);
+    }
+
+    @Override
+    protected PersistedData serializeNonNull(PlayerAction value, PersistedDataSerializer serializer) {
+        return null;
     }
 }

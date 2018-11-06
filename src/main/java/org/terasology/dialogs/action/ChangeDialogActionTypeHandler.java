@@ -17,33 +17,41 @@
 package org.terasology.dialogs.action;
 
 import java.util.Map;
+import java.util.Optional;
 
-import org.terasology.persistence.typeHandling.DeserializationContext;
-import org.terasology.persistence.typeHandling.PersistedData;
-import org.terasology.persistence.typeHandling.PersistedDataMap;
-import org.terasology.persistence.typeHandling.RegisterTypeHandler;
-import org.terasology.persistence.typeHandling.SerializationContext;
-import org.terasology.persistence.typeHandling.SimpleTypeHandler;
+import org.terasology.persistence.typeHandling.*;
 
 import com.google.common.collect.ImmutableMap;
 
 @RegisterTypeHandler
-public class ChangeDialogActionTypeHandler extends SimpleTypeHandler<ChangeDialogAction> {
+public class ChangeDialogActionTypeHandler extends TypeHandler<ChangeDialogAction> {
 
     @Override
-    public PersistedData serialize(ChangeDialogAction action, SerializationContext context) {
-        Map<String, PersistedData> data = ImmutableMap.of(
-                "type", context.create(action.getClass().getSimpleName()),
-                "prefab", context.create(action.getPrefab()));
-
-        return context.create(data);
+    protected PersistedData serializeNonNull(ChangeDialogAction value, PersistedDataSerializer serializer) {
+        return null;
     }
 
     @Override
-    public ChangeDialogAction deserialize(PersistedData data, DeserializationContext context) {
+    public PersistedData serialize(ChangeDialogAction action, PersistedDataSerializer context) {
+        Map<String, PersistedData> data = ImmutableMap.of(
+                "type", context.serialize(action.getClass().getSimpleName()),
+                "prefab", context.serialize(action.getPrefab()));
+
+        return context.serialize(data);
+    }
+
+    @Override
+    public Optional<ChangeDialogAction> deserialize(PersistedData data) {
+        PersistedDataMap root = data.getAsValueMap();
+        String prefab = root.get("prefab").getAsString();
+        return Optional.ofNullable(new ChangeDialogAction(prefab));
+    }
+
+    /*@Override
+    public ChangeDialogAction deserialize(PersistedData data) {
         PersistedDataMap root = data.getAsValueMap();
         String prefab = root.get("prefab").getAsString();
         return new ChangeDialogAction(prefab);
-    }
+    }*/
 
 }
