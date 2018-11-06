@@ -44,7 +44,7 @@ public class PlayerActionTypeHandler extends TypeHandler<PlayerAction> {
             throw new DeserializationException("Ambiguous type: '" + typeId + "' - found " + types);
         }
 
-        return context.serialize(value, type);.
+        return context.serialize(value, type);
     }
 
     @Override

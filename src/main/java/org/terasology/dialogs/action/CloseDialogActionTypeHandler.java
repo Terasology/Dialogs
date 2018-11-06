@@ -34,7 +34,7 @@ public class CloseDialogActionTypeHandler extends TypeHandler<CloseDialogAction>
         Map<String, PersistedData> data = ImmutableMap.of(
                 "type", context.serialize(action.getClass().getSimpleName()));
 
-        return context.serialize(data);.
+        return context.serialize(data);
     }
 
     @Override
