@@ -16,13 +16,10 @@
 
 package org.terasology.dialogs.action;
 
-import java.util.Map;
 import java.util.Optional;
 
 import org.terasology.persistence.typeHandling.PersistedData;
 import org.terasology.persistence.typeHandling.PersistedDataSerializer;
-
-import com.google.common.collect.ImmutableMap;
 import org.terasology.persistence.typeHandling.RegisterTypeHandler;
 import org.terasology.persistence.typeHandling.TypeHandler;
 

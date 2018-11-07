@@ -16,24 +16,16 @@
 
 package org.terasology.dialogs.action;
 
-import java.util.Map;
 import java.util.Optional;
 
 import org.terasology.persistence.typeHandling.*;
-
-import com.google.common.collect.ImmutableMap;
 
 @RegisterTypeHandler
 public class ChangeDialogActionTypeHandler extends TypeHandler<ChangeDialogAction> {
 
     @Override
     protected PersistedData serializeNonNull(ChangeDialogAction value, PersistedDataSerializer serializer) {
-        return serializer.serializeNull();
-    }
-
-    @Override
-    public PersistedData serialize(ChangeDialogAction action, PersistedDataSerializer context) {
-        return context.serialize(action.getPrefab());
+        return serializer.serialize(value.getPrefab());
     }
 
     @Override
