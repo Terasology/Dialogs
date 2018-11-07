@@ -30,8 +30,10 @@ public class ChangeDialogActionTypeHandler extends TypeHandler<ChangeDialogActio
 
     @Override
     public Optional<ChangeDialogAction> deserialize(PersistedData data) {
-        PersistedDataMap root = data.getAsValueMap();
-        String prefab = root.get("prefab").getAsString();
+        if (!data.isString()) {
+            return Optional.empty();
+        }
+        String prefab = data.getAsString();
         return Optional.of(new ChangeDialogAction(prefab));
     }
 }

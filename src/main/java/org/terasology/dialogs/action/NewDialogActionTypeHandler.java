@@ -16,12 +16,11 @@
 
 package org.terasology.dialogs.action;
 
-import java.util.Map;
-import java.util.Optional;
-
 import org.terasology.persistence.typeHandling.*;
 
-import com.google.common.collect.ImmutableMap;
+import java.util.Optional;
+
+
 
 @RegisterTypeHandler
 public class NewDialogActionTypeHandler extends TypeHandler<NewDialogAction> {
@@ -33,8 +32,10 @@ public class NewDialogActionTypeHandler extends TypeHandler<NewDialogAction> {
 
     @Override
     public Optional<NewDialogAction> deserialize(PersistedData data) {
-        PersistedDataMap root = data.getAsValueMap();
-        String target = root.get("target").getAsString();
+        if (!data.isString()) {
+            return Optional.empty();
+        }
+        String target = data.getAsString();
         return Optional.of(new NewDialogAction(target));
     }
 }
