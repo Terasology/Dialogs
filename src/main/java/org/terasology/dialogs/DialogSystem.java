@@ -125,7 +125,7 @@ public class DialogSystem extends BaseComponentSystem {
     @ReceiveEvent
     public void showDialog(ShowDialogEvent event, EntityRef character) {
 
-        if (character.getId() != localPlayer.getCharacterEntity().getId()) {
+        if (character != localPlayer.getCharacterEntity()) {
             return;
         }
 
