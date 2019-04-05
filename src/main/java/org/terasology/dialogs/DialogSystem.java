@@ -38,6 +38,7 @@ import org.terasology.input.InputType;
 import org.terasology.logic.characters.CharacterComponent;
 import org.terasology.logic.characters.events.ActivationRequest;
 import org.terasology.logic.common.DisplayNameComponent;
+import org.terasology.logic.players.LocalPlayer;
 import org.terasology.logic.players.PlayerTargetChangedEvent;
 import org.terasology.network.ClientComponent;
 import org.terasology.network.ColorComponent;
@@ -68,6 +69,9 @@ public class DialogSystem extends BaseComponentSystem {
 
     @In
     private AssetManager assetManager;
+
+    @In
+    private LocalPlayer localPlayer;
 
     private String talkText;
 
@@ -120,6 +124,11 @@ public class DialogSystem extends BaseComponentSystem {
 
     @ReceiveEvent
     public void showDialog(ShowDialogEvent event, EntityRef character) {
+
+        if (character != localPlayer.getCharacterEntity()) {
+            return;
+        }
+
         DialogScreen window = nuiManager.pushScreen(DialogScreen.ASSET_URI, DialogScreen.class);
         window.reset();
 
