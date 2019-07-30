@@ -69,7 +69,7 @@ public class PlayerActionSerializationTest {
 
         ModuleContext.setContext(environment.get(new Name("Dialogs")));
 
-        TypeHandlerLibrary typeHandlerLibrary = new TypeHandlerLibrary(environment);
+        TypeHandlerLibrary typeHandlerLibrary = new TypeHandlerLibrary(moduleManager);
         playerActionTypeHandler = typeHandlerLibrary.getBaseTypeHandler(TypeInfo.of(PlayerAction.class));
     }
 
