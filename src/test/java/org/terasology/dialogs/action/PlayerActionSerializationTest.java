@@ -15,20 +15,11 @@
  */
 package org.terasology.dialogs.action;
 
-import com.google.common.collect.Lists;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
-import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.nio.file.ShrinkWrapFileSystems;
-import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.junit.Before;
 import org.junit.Test;
-import org.terasology.engine.module.ModuleManager;
-import org.terasology.engine.paths.PathManager;
-import org.terasology.module.DependencyResolver;
-import org.terasology.module.ModuleEnvironment;
-import org.terasology.module.ResolutionResult;
+import org.terasology.ModuleEnvironmentTest;
 import org.terasology.naming.Name;
 import org.terasology.persistence.ModuleContext;
 import org.terasology.persistence.typeHandling.TypeHandler;
@@ -36,40 +27,21 @@ import org.terasology.persistence.typeHandling.TypeHandlerLibrary;
 import org.terasology.persistence.typeHandling.gson.GsonPersistedData;
 import org.terasology.persistence.typeHandling.gson.GsonPersistedDataSerializer;
 import org.terasology.reflection.TypeInfo;
-import org.terasology.testUtil.ModuleManagerFactory;
-
-import java.nio.file.FileSystem;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assume.assumeTrue;
 
-public class PlayerActionSerializationTest {
+public class PlayerActionSerializationTest extends ModuleEnvironmentTest {
     public static final GsonPersistedDataSerializer SERIALIZER = new GsonPersistedDataSerializer();
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
     private TypeHandler<PlayerAction> playerActionTypeHandler;
 
-    @Before
-    public void setUp() throws Exception {
-        final JavaArchive homeArchive = ShrinkWrap.create(JavaArchive.class);
-        final FileSystem vfs = ShrinkWrapFileSystems.newFileSystem(homeArchive);
-        PathManager.getInstance().useOverrideHomePath(vfs.getPath(""));
+    @Override
+    public void setup() {
+        ModuleContext.setContext(moduleManager.getEnvironment().get(new Name("Dialogs")));
 
-        ModuleManager moduleManager = ModuleManagerFactory.create();
-
-        DependencyResolver resolver = new DependencyResolver(moduleManager.getRegistry());
-        ResolutionResult result = resolver.resolve(Lists.newArrayList(new Name("engine"),
-            new Name("Dialogs"),
-            new Name("unittest")));
-
-        assumeTrue(result.isSuccess());
-
-        ModuleEnvironment environment = moduleManager.loadEnvironment(result.getModules(), true);
-
-        ModuleContext.setContext(environment.get(new Name("Dialogs")));
-
-        TypeHandlerLibrary typeHandlerLibrary = new TypeHandlerLibrary(moduleManager);
+        TypeHandlerLibrary typeHandlerLibrary = new TypeHandlerLibrary(moduleManager, typeRegistry);
         playerActionTypeHandler = typeHandlerLibrary.getBaseTypeHandler(TypeInfo.of(PlayerAction.class));
     }
 
