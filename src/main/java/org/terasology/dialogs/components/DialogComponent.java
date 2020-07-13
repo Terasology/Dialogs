@@ -19,12 +19,17 @@ package org.terasology.dialogs.components;
 import java.util.List;
 
 import org.terasology.entitySystem.Component;
+import org.terasology.network.Replicate;
 
 /**
  * Use this to add a dialog
  */
 public final class DialogComponent implements Component {
+
+    @Replicate
     public String firstPage;
+
+    @Replicate
     public List<DialogPage> pages;
 
     /**
