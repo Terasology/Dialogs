@@ -23,6 +23,7 @@ import org.terasology.rendering.nui.CoreScreenLayer;
 import org.terasology.rendering.nui.UIWidget;
 import org.terasology.rendering.nui.layouts.ColumnLayout;
 import org.terasology.rendering.nui.widgets.UIButton;
+import org.terasology.rendering.nui.widgets.UIImage;
 import org.terasology.rendering.nui.widgets.browser.data.html.HTMLDocument;
 import org.terasology.rendering.nui.widgets.browser.ui.BrowserWidget;
 
@@ -33,6 +34,7 @@ public class DialogScreen extends CoreScreenLayer {
     public static final ResourceUrn ASSET_URI = new ResourceUrn("Dialogs:DialogScreen");
 
     private ColumnLayout responseButtons;
+    private ColumnLayout responseImage;
     private BrowserWidget browser;
     private final HTMLDocument emptyPage = new HTMLDocument(null);
 
@@ -40,7 +42,9 @@ public class DialogScreen extends CoreScreenLayer {
     public void initialise() {
 
         responseButtons = find("responseButtons", ColumnLayout.class);
+        responseImage = find("responseImage", ColumnLayout.class);
         browser = find("browser", BrowserWidget.class);
+
     }
 
     @Override
@@ -71,12 +75,14 @@ public class DialogScreen extends CoreScreenLayer {
 
     public void addResponseOption(EntityRef charEnt, EntityRef talkTo, String text, List<PlayerAction> actions) {
         UIButton newButton = new UIButton();
+        UIImage newImage = new UIImage();
         newButton.setText(text);
         newButton.subscribe(widget -> {
             for (PlayerAction action : actions) {
                 action.execute(charEnt, talkTo);
             }
         });
+        responseImage.addWidget(newImage, null);
         responseButtons.addWidget(newButton, null);
     }
 }
