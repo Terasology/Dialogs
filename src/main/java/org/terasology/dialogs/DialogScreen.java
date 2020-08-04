@@ -65,6 +65,9 @@ public class DialogScreen extends CoreScreenLayer {
         for (UIWidget widget : Lists.newArrayList(responseButtons)) {
             responseButtons.removeWidget(widget);
         }
+        for (UIWidget widget : Lists.newArrayList(responseImage)) {
+            responseImage.removeWidget(widget);
+        }
 //        // HACK! implement ColumnLayout.removeWidget()
 //        Iterator<UIWidget> it = responseButtons.iterator();
 //        while (it.hasNext()) {
