@@ -48,6 +48,7 @@ import org.terasology.persistence.TemplateEngine;
 import org.terasology.persistence.TemplateEngineImpl;
 import org.terasology.registry.In;
 import org.terasology.rendering.FontColor;
+import org.terasology.rendering.assets.texture.TextureRegion;
 import org.terasology.rendering.nui.Color;
 import org.terasology.rendering.nui.NUIManager;
 import org.terasology.rendering.nui.widgets.browser.data.basic.HTMLLikeParser;
@@ -152,9 +153,11 @@ public class DialogSystem extends BaseComponentSystem {
         }
 
         window.setDocument(documentData);
+        String imageURN = templateEngine.transform(r.responseImage);
+        TextureRegion image = null;//= (imageURN.equals(null) ? "" : imageURN);
         for (DialogResponse r : page.responses) {
             String text = templateEngine.transform(r.text);
-            window.addResponseOption(character, event.getTalkTo(), text, r.action);
+            window.addResponseOption(character, event.getTalkTo(), text, image, r.action);
         }
     }
 
