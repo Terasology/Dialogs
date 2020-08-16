@@ -31,20 +31,19 @@
                             "height": 60,
                             "use-content-width": true,
                             "position-top": {
-                                "target": "TOP",
+                                "target": "BOTTOM",
                                 "widget": "box"
                             }
                         }
                     },
                     {
                         "type": "ColumnLayout",
-                        "columns": 2,
-                        "column-widths": [0.24, 0.76],
+                        "id": "responseButtons",
                         "layoutInfo": {
                             "height": 60,
                             "use-content-width": true,
                             "position-top": {
-                                "target": "TOP",
+                                "target": "BOTTOM",
                                 "widget": "box"
                             },
                             "position-left": {
@@ -52,21 +51,7 @@
                                 "widget": "responseImage",
                                 "offset": 5
                             }
-                        },
-                        "contents": [
-                            {
-                                "type": "UIImage",
-                                "id": "dialogueImage"
-                            },
-                            {
-                                "type": "ScrollableArea",
-                                "id": "mainContent",
-                                "content": {
-                                    "type": "BrowserWidget",
-                                    "id": "browser"
-                                }
-                            }
-                        ]
+                        }
                     }
                 ]
             }
