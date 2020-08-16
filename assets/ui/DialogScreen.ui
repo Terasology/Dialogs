@@ -44,12 +44,16 @@
                             "use-content-width": true,
                             "position-top": {
                                 "target": "BOTTOM",
-                                "widget": "box"
+                                "widget": "mainContent"
                             },
                             "position-left": {
                                 "target": "RIGHT",
                                 "widget": "responseImage",
                                 "offset": 5
+                            },
+                            "position-right": {
+                                "target": "RIGHT",
+                                "widget": "mainContent"
                             }
                         }
                     }
