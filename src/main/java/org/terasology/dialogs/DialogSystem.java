@@ -16,11 +16,6 @@
 
 package org.terasology.dialogs;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-
 import org.terasology.assets.management.AssetManager;
 import org.terasology.dialogs.components.DialogComponent;
 import org.terasology.dialogs.components.DialogPage;
@@ -46,11 +41,9 @@ import org.terasology.notify.ui.NotificationEvent;
 import org.terasology.notify.ui.RemoveNotificationEvent;
 import org.terasology.persistence.TemplateEngine;
 import org.terasology.persistence.TemplateEngineImpl;
-import org.terasology.persistence.typeHandling.extensionTypes.TextureRegionAssetTypeHandler;
 import org.terasology.registry.In;
 import org.terasology.rendering.FontColor;
 import org.terasology.rendering.assets.texture.TextureRegion;
-import org.terasology.rendering.assets.texture.TextureRegionAsset;
 import org.terasology.rendering.nui.Color;
 import org.terasology.rendering.nui.NUIManager;
 import org.terasology.rendering.nui.widgets.browser.data.basic.HTMLLikeParser;
@@ -58,6 +51,11 @@ import org.terasology.rendering.nui.widgets.browser.data.html.HTMLDocument;
 import org.terasology.rendering.nui.widgets.browser.ui.style.ParagraphRenderStyle;
 import org.terasology.unicode.EnclosedAlphanumerics;
 import org.terasology.utilities.Assets;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 /**
  * TODO Type description
@@ -159,7 +157,7 @@ public class DialogSystem extends BaseComponentSystem {
         TextureRegion image = Assets.getTextureRegion("Dialogs:answerArrow").get();
         for (DialogResponse r : page.responses) {
             String imageURN = r.responseImage;
-            if(imageURN != null){
+            if (imageURN != null) {
                 image = Assets.getTextureRegion(imageURN).get();
             }
             String text = templateEngine.transform(r.text);
