@@ -1,5 +1,11 @@
 {
     "inherit": "default",
+    "families" : {
+        "imageColumn" : {
+            "max-width": 20,
+            "min-width": 10
+        }
+    },
     "elements": {
         "UIButton": {
             "min-height": 32,
