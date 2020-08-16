@@ -158,6 +158,10 @@ public class DialogSystem extends BaseComponentSystem {
         window.setDocument(documentData);
         TextureRegion image = Assets.getTextureRegion("engine:checkboxChecked").get();
         for (DialogResponse r : page.responses) {
+            String imageURN = r.responseImage;
+            if(imageURN != null){
+                image = Assets.getTextureRegion(imageURN).get();
+            }
             String text = templateEngine.transform(r.text);
             window.addResponseOption(character, event.getTalkTo(), text, image, r.action);
         }

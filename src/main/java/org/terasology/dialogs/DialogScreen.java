@@ -22,11 +22,13 @@ import org.terasology.entitySystem.entity.EntityRef;
 import org.terasology.rendering.assets.texture.TextureRegion;
 import org.terasology.rendering.nui.CoreScreenLayer;
 import org.terasology.rendering.nui.UIWidget;
+import org.terasology.rendering.nui.databinding.ReadOnlyBinding;
 import org.terasology.rendering.nui.layouts.ColumnLayout;
 import org.terasology.rendering.nui.widgets.UIButton;
 import org.terasology.rendering.nui.widgets.UIImage;
 import org.terasology.rendering.nui.widgets.browser.data.html.HTMLDocument;
 import org.terasology.rendering.nui.widgets.browser.ui.BrowserWidget;
+import org.terasology.utilities.Assets;
 
 import java.util.List;
 
@@ -82,6 +84,12 @@ public class DialogScreen extends CoreScreenLayer {
         UIImage newImage = new UIImage();
         newButton.setText(text);
         newImage.setImage(image);
+        newImage.bindVisible(new ReadOnlyBinding<Boolean>() {
+            @Override
+            public Boolean get() {
+                return newButton.getMode().equals(UIButton.HOVER_MODE);
+            }
+        });
         newButton.subscribe(widget -> {
             for (PlayerAction action : actions) {
                 action.execute(charEnt, talkTo);
