@@ -2,13 +2,14 @@
     "inherit": "default",
     "families" : {
         "imageColumn" : {
+            "fixed-height": 32,
             "max-width": 20,
             "min-width": 10
         }
     },
     "elements": {
         "UIButton": {
-            "min-height": 32,
+            "fixed-height": 32,
             "text-align-horizontal": "left",
             "modes": {
                 "disabled": {
