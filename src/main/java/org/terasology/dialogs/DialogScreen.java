@@ -28,7 +28,6 @@ import org.terasology.rendering.nui.widgets.UIButton;
 import org.terasology.rendering.nui.widgets.UIImage;
 import org.terasology.rendering.nui.widgets.browser.data.html.HTMLDocument;
 import org.terasology.rendering.nui.widgets.browser.ui.BrowserWidget;
-import org.terasology.utilities.Assets;
 
 import java.util.List;
 
@@ -79,7 +78,8 @@ public class DialogScreen extends CoreScreenLayer {
 //        }
     }
 
-    public void addResponseOption(EntityRef charEnt, EntityRef talkTo, String text, TextureRegion image, List<PlayerAction> actions) {
+    public void addResponseOption(EntityRef charEnt, EntityRef talkTo, String text, TextureRegion image,
+                                  List<PlayerAction> actions) {
         UIButton newButton = new UIButton();
         UIImage newImage = new UIImage();
         newButton.setText(text);
