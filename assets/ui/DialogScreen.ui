@@ -25,9 +25,11 @@
                     },
                     {
                         "type": "ColumnLayout",
-                        "id": "responseButtons",
+                        "id": "responseImage",
+                        "family": "imageColumn",
                         "layoutInfo": {
                             "use-content-height": true,
+                            "use-content-width": true,
                             "position-top": {
                                 "target": "BOTTOM",
                                 "widget": "mainContent"
@@ -37,8 +39,25 @@
                                 "widget": "mainContent"
                             },
                             "position-right": {
-                                "target": "RIGHT",
+                                "target": "LEFT",
+                                "widget": "responseButtons"
+                            }
+                        }
+                    },
+                    {
+                        "type": "ColumnLayout",
+                        "id": "responseButtons",
+                        "layoutInfo": {
+                            "use-content-height": true,
+                            "use-content-width": true,
+                            "position-top": {
+                                "target": "BOTTOM",
                                 "widget": "mainContent"
+                            },
+                            "position-left": {
+                                "target": "RIGHT",
+                                "widget": "responseImage",
+                                "offset": 5
                             }
                         }
                     }

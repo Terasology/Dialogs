@@ -19,10 +19,13 @@ import com.google.common.collect.Lists;
 import org.terasology.assets.ResourceUrn;
 import org.terasology.dialogs.action.PlayerAction;
 import org.terasology.entitySystem.entity.EntityRef;
+import org.terasology.rendering.assets.texture.TextureRegion;
 import org.terasology.rendering.nui.CoreScreenLayer;
 import org.terasology.rendering.nui.UIWidget;
+import org.terasology.rendering.nui.databinding.ReadOnlyBinding;
 import org.terasology.rendering.nui.layouts.ColumnLayout;
 import org.terasology.rendering.nui.widgets.UIButton;
+import org.terasology.rendering.nui.widgets.UIImage;
 import org.terasology.rendering.nui.widgets.browser.data.html.HTMLDocument;
 import org.terasology.rendering.nui.widgets.browser.ui.BrowserWidget;
 
@@ -33,6 +36,7 @@ public class DialogScreen extends CoreScreenLayer {
     public static final ResourceUrn ASSET_URI = new ResourceUrn("Dialogs:DialogScreen");
 
     private ColumnLayout responseButtons;
+    private ColumnLayout responseImage;
     private BrowserWidget browser;
     private final HTMLDocument emptyPage = new HTMLDocument(null);
 
@@ -40,7 +44,9 @@ public class DialogScreen extends CoreScreenLayer {
     public void initialise() {
 
         responseButtons = find("responseButtons", ColumnLayout.class);
+        responseImage = find("responseImage", ColumnLayout.class);
         browser = find("browser", BrowserWidget.class);
+
     }
 
     @Override
@@ -61,6 +67,9 @@ public class DialogScreen extends CoreScreenLayer {
         for (UIWidget widget : Lists.newArrayList(responseButtons)) {
             responseButtons.removeWidget(widget);
         }
+        for (UIWidget widget : Lists.newArrayList(responseImage)) {
+            responseImage.removeWidget(widget);
+        }
 //        // HACK! implement ColumnLayout.removeWidget()
 //        Iterator<UIWidget> it = responseButtons.iterator();
 //        while (it.hasNext()) {
@@ -69,14 +78,24 @@ public class DialogScreen extends CoreScreenLayer {
 //        }
     }
 
-    public void addResponseOption(EntityRef charEnt, EntityRef talkTo, String text, List<PlayerAction> actions) {
+    public void addResponseOption(EntityRef charEnt, EntityRef talkTo, String text, TextureRegion image,
+                                  List<PlayerAction> actions) {
         UIButton newButton = new UIButton();
+        UIImage newImage = new UIImage();
         newButton.setText(text);
+        newImage.setImage(image);
+        newImage.bindVisible(new ReadOnlyBinding<Boolean>() {
+            @Override
+            public Boolean get() {
+                return newButton.getMode().equals(UIButton.HOVER_MODE);
+            }
+        });
         newButton.subscribe(widget -> {
             for (PlayerAction action : actions) {
                 action.execute(charEnt, talkTo);
             }
         });
+        responseImage.addWidget(newImage, null);
         responseButtons.addWidget(newButton, null);
     }
 }

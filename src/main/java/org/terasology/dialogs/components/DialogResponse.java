@@ -27,5 +27,6 @@ import org.terasology.reflection.MappedContainer;
 @MappedContainer
 public class DialogResponse {
     public String text;
+    public String responseImage;
     public List<PlayerAction> action;
 }
