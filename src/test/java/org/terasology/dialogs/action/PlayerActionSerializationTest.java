@@ -1,18 +1,5 @@
-/*
- * Copyright 2019 MovingBlocks
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+// Copyright 2020 The Terasology Foundation
+// SPDX-License-Identifier: Apache-2.0
 package org.terasology.dialogs.action;
 
 import com.google.gson.Gson;
@@ -28,9 +15,9 @@ import org.terasology.persistence.typeHandling.gson.GsonPersistedData;
 import org.terasology.persistence.typeHandling.gson.GsonPersistedDataSerializer;
 import org.terasology.reflection.TypeInfo;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class PlayerActionSerializationTest extends ModuleEnvironmentTest {
     public static final GsonPersistedDataSerializer SERIALIZER = new GsonPersistedDataSerializer();
@@ -46,7 +33,7 @@ public class PlayerActionSerializationTest extends ModuleEnvironmentTest {
     }
 
     @Test
-    public void testCloseDialogAction() {
+    public void testCloseDialogActionSerialize() {
         CloseDialogAction action = new CloseDialogAction();
         String json = serialize(action);
         String expected = "{\n" +
@@ -55,17 +42,22 @@ public class PlayerActionSerializationTest extends ModuleEnvironmentTest {
 
         assertEquals(expected, json);
 
-        final String CONTEXT_BASED_JSON = "{\n" +
-                                              "\"class\": \"CloseDialogAction\"\n" +
-                                              "}";
+    }
 
-        action = deserialize(CONTEXT_BASED_JSON, CloseDialogAction.class);
+    @Test
+    public void testCloseDialogActionDeserialize() {
+        final String contextBasedJson =
+                "{\n" +
+                "\"class\": \"CloseDialogAction\"\n" +
+                "}";
+
+        CloseDialogAction action = deserialize(contextBasedJson, CloseDialogAction.class);
 
         assertNotNull(action);
     }
 
     @Test
-    public void testChangeDialogAction() {
+    public void testChangeDialogActionSerialize() {
         ChangeDialogAction action = new ChangeDialogAction("$prefab");
         String json = serialize(action);
         String expected = "{\n" +
@@ -74,13 +66,16 @@ public class PlayerActionSerializationTest extends ModuleEnvironmentTest {
                               "}";
 
         assertEquals(expected, json);
+    }
 
-        final String CONTEXT_BASED_JSON = "{\n" +
-                                              "\"class\": \"ChangeDialogAction\",\n" +
-                                              "\"prefab\": \"$prefab\"\n" +
-                                              "}";
+    @Test
+    public void testChangeDialogActionDeserialize() {
+        final String contextBasedJson = "{\n" +
+                "\"class\": \"ChangeDialogAction\",\n" +
+                "\"prefab\": \"$prefab\"\n" +
+                "}";
 
-        action = deserialize(CONTEXT_BASED_JSON, ChangeDialogAction.class);
+        ChangeDialogAction action = deserialize(contextBasedJson, ChangeDialogAction.class);
 
         assertNotNull(action);
         assertEquals("$prefab", action.getPrefab());
@@ -96,13 +91,16 @@ public class PlayerActionSerializationTest extends ModuleEnvironmentTest {
                               "}";
 
         assertEquals(expected, json);
+    }
 
-        final String CONTEXT_BASED_JSON = "{\n" +
-                                              "  \"class\": \"NewDialogAction\",\n" +
-                                              "  \"target\": \"$$$\"\n" +
-                                              "}";
+    @Test
+    public void testNewDialogActionDeserialize() {
+      final String contextBasedJson = "{\n" +
+                "  \"class\": \"NewDialogAction\",\n" +
+                "  \"target\": \"$$$\"\n" +
+                "}";
 
-        action = deserialize(CONTEXT_BASED_JSON, NewDialogAction.class);
+        NewDialogAction action = deserialize(contextBasedJson, NewDialogAction.class);
 
         assertNotNull(action);
         assertEquals("$$$", action.getTarget());
