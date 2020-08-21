@@ -18,7 +18,7 @@ package org.terasology.dialogs.action;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.terasology.ModuleEnvironmentTest;
 import org.terasology.naming.Name;
 import org.terasology.persistence.ModuleContext;
