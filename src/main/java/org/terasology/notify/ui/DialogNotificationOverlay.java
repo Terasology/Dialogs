@@ -21,13 +21,9 @@ import java.util.List;
 
 import org.terasology.assets.ResourceUrn;
 import org.terasology.engine.Time;
+import org.terasology.nui.widgets.UIList;
 import org.terasology.registry.In;
-import org.terasology.rendering.nui.Canvas;
-import org.terasology.rendering.nui.Color;
 import org.terasology.rendering.nui.CoreScreenLayer;
-import org.terasology.rendering.nui.databinding.DefaultBinding;
-import org.terasology.rendering.nui.widgets.UILabel;
-import org.terasology.rendering.nui.widgets.UIList;
 
 public class DialogNotificationOverlay extends CoreScreenLayer {
 

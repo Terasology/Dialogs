@@ -17,8 +17,8 @@
 package org.terasology.notify.ui;
 
 import org.terasology.engine.Time;
-import org.terasology.rendering.nui.Canvas;
-import org.terasology.rendering.nui.itemRendering.StringTextRenderer;
+import org.terasology.nui.Canvas;
+import org.terasology.nui.itemRendering.StringTextRenderer;
 
 /**
  *
