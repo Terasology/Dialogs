@@ -71,6 +71,7 @@ public class DialogScreen extends CoreScreenLayer {
         UIImage newImage = new UIImage();
         newButton.setText(text);
         newImage.setImage(image);
+        newImage.setFamily("imageColumn");
         newImage.bindVisible(new ReadOnlyBinding<Boolean>() {
             @Override
             public Boolean get() {
