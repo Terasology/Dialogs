@@ -11,14 +11,17 @@
         "UIButton": {
             "fixed-height": 32,
             "text-align-horizontal": "left",
+            "background": "Dialogs:black",
             "modes": {
                 "disabled": {
                     "text-color": "AAAAAAFF"
                 },
                 "hover": {
+                    "background": "Dialogs:blackPushed",
                     "text-color": "FFFF00FF"
                 },
                 "down": {
+                    "background": "Dialogs:blackPushed",
                     "text-color": "AAAA00FF"
                 },
                 "warning": {
