@@ -26,7 +26,6 @@
                     {
                         "type": "ColumnLayout",
                         "id": "responseImage",
-                        "family": "imageColumn",
                         "layoutInfo": {
                             "use-content-height": true,
                             "use-content-width": true,
