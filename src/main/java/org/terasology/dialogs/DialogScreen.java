@@ -3,16 +3,16 @@
 package org.terasology.dialogs;
 
 import com.google.common.collect.Lists;
-import org.terasology.assets.ResourceUrn;
 import org.terasology.dialogs.action.PlayerAction;
 import org.terasology.entitySystem.entity.EntityRef;
-import org.terasology.rendering.assets.texture.TextureRegion;
-import org.terasology.rendering.nui.CoreScreenLayer;
+import org.terasology.gestalt.assets.ResourceUrn;
 import org.terasology.nui.UIWidget;
 import org.terasology.nui.databinding.ReadOnlyBinding;
 import org.terasology.nui.layouts.ColumnLayout;
 import org.terasology.nui.widgets.UIButton;
 import org.terasology.nui.widgets.UIImage;
+import org.terasology.rendering.assets.texture.TextureRegion;
+import org.terasology.rendering.nui.CoreScreenLayer;
 import org.terasology.rendering.nui.widgets.browser.data.html.HTMLDocument;
 import org.terasology.rendering.nui.widgets.browser.ui.BrowserWidget;
 

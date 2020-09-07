@@ -3,7 +3,6 @@
 
 package org.terasology.dialogs;
 
-import org.terasology.assets.management.AssetManager;
 import org.terasology.dialogs.components.DialogComponent;
 import org.terasology.dialogs.components.DialogPage;
 import org.terasology.dialogs.components.DialogResponse;
@@ -14,6 +13,7 @@ import org.terasology.entitySystem.prefab.Prefab;
 import org.terasology.entitySystem.systems.BaseComponentSystem;
 import org.terasology.entitySystem.systems.RegisterMode;
 import org.terasology.entitySystem.systems.RegisterSystem;
+import org.terasology.gestalt.assets.management.AssetManager;
 import org.terasology.input.Input;
 import org.terasology.input.InputSystem;
 import org.terasology.input.InputType;
@@ -26,12 +26,12 @@ import org.terasology.network.ClientComponent;
 import org.terasology.network.ColorComponent;
 import org.terasology.notify.ui.NotificationEvent;
 import org.terasology.notify.ui.RemoveNotificationEvent;
+import org.terasology.nui.Color;
+import org.terasology.nui.FontColor;
 import org.terasology.persistence.TemplateEngine;
 import org.terasology.persistence.TemplateEngineImpl;
 import org.terasology.registry.In;
-import org.terasology.nui.FontColor;
 import org.terasology.rendering.assets.texture.TextureRegion;
-import org.terasology.nui.Color;
 import org.terasology.rendering.nui.NUIManager;
 import org.terasology.rendering.nui.widgets.browser.data.basic.HTMLLikeParser;
 import org.terasology.rendering.nui.widgets.browser.data.html.HTMLDocument;
