@@ -4,28 +4,27 @@ package org.terasology.dialogs;
 
 import com.google.common.collect.Lists;
 import org.terasology.dialogs.action.PlayerAction;
-import org.terasology.entitySystem.entity.EntityRef;
+import org.terasology.engine.entitySystem.entity.EntityRef;
+import org.terasology.engine.rendering.assets.texture.TextureRegion;
+import org.terasology.engine.rendering.nui.CoreScreenLayer;
+import org.terasology.engine.rendering.nui.widgets.browser.data.html.HTMLDocument;
+import org.terasology.engine.rendering.nui.widgets.browser.ui.BrowserWidget;
 import org.terasology.gestalt.assets.ResourceUrn;
 import org.terasology.nui.UIWidget;
 import org.terasology.nui.databinding.ReadOnlyBinding;
 import org.terasology.nui.layouts.ColumnLayout;
 import org.terasology.nui.widgets.UIButton;
 import org.terasology.nui.widgets.UIImage;
-import org.terasology.rendering.assets.texture.TextureRegion;
-import org.terasology.rendering.nui.CoreScreenLayer;
-import org.terasology.rendering.nui.widgets.browser.data.html.HTMLDocument;
-import org.terasology.rendering.nui.widgets.browser.ui.BrowserWidget;
 
 import java.util.List;
 
 public class DialogScreen extends CoreScreenLayer {
 
     public static final ResourceUrn ASSET_URI = new ResourceUrn("Dialogs:DialogScreen");
-
+    private final HTMLDocument emptyPage = new HTMLDocument(null);
     private ColumnLayout responseButtons;
     private ColumnLayout responseImage;
     private BrowserWidget browser;
-    private final HTMLDocument emptyPage = new HTMLDocument(null);
 
     @Override
     public void initialise() {

@@ -3,7 +3,7 @@
 
 package org.terasology.notify.ui;
 
-import org.terasology.engine.Time;
+import org.terasology.engine.core.Time;
 import org.terasology.nui.Canvas;
 import org.terasology.nui.itemRendering.StringTextRenderer;
 

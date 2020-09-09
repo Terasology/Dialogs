@@ -6,38 +6,38 @@ package org.terasology.dialogs;
 import org.terasology.dialogs.components.DialogComponent;
 import org.terasology.dialogs.components.DialogPage;
 import org.terasology.dialogs.components.DialogResponse;
-import org.terasology.engine.SimpleUri;
-import org.terasology.entitySystem.entity.EntityRef;
-import org.terasology.entitySystem.event.ReceiveEvent;
-import org.terasology.entitySystem.prefab.Prefab;
-import org.terasology.entitySystem.systems.BaseComponentSystem;
-import org.terasology.entitySystem.systems.RegisterMode;
-import org.terasology.entitySystem.systems.RegisterSystem;
+import org.terasology.engine.core.SimpleUri;
+import org.terasology.engine.entitySystem.entity.EntityRef;
+import org.terasology.engine.entitySystem.event.ReceiveEvent;
+import org.terasology.engine.entitySystem.prefab.Prefab;
+import org.terasology.engine.entitySystem.systems.BaseComponentSystem;
+import org.terasology.engine.entitySystem.systems.RegisterMode;
+import org.terasology.engine.entitySystem.systems.RegisterSystem;
+import org.terasology.engine.input.InputSystem;
+import org.terasology.engine.logic.characters.CharacterComponent;
+import org.terasology.engine.logic.characters.events.ActivationRequest;
+import org.terasology.engine.logic.common.DisplayNameComponent;
+import org.terasology.engine.logic.players.LocalPlayer;
+import org.terasology.engine.logic.players.PlayerTargetChangedEvent;
+import org.terasology.engine.network.ClientComponent;
+import org.terasology.engine.network.ColorComponent;
+import org.terasology.engine.persistence.TemplateEngine;
+import org.terasology.engine.persistence.TemplateEngineImpl;
+import org.terasology.engine.registry.In;
+import org.terasology.engine.rendering.assets.texture.TextureRegion;
+import org.terasology.engine.rendering.nui.NUIManager;
+import org.terasology.engine.rendering.nui.widgets.browser.data.basic.HTMLLikeParser;
+import org.terasology.engine.rendering.nui.widgets.browser.data.html.HTMLDocument;
+import org.terasology.engine.rendering.nui.widgets.browser.ui.style.ParagraphRenderStyle;
+import org.terasology.engine.unicode.EnclosedAlphanumerics;
+import org.terasology.engine.utilities.Assets;
 import org.terasology.gestalt.assets.management.AssetManager;
-import org.terasology.input.Input;
-import org.terasology.input.InputSystem;
-import org.terasology.input.InputType;
-import org.terasology.logic.characters.CharacterComponent;
-import org.terasology.logic.characters.events.ActivationRequest;
-import org.terasology.logic.common.DisplayNameComponent;
-import org.terasology.logic.players.LocalPlayer;
-import org.terasology.logic.players.PlayerTargetChangedEvent;
-import org.terasology.network.ClientComponent;
-import org.terasology.network.ColorComponent;
 import org.terasology.notify.ui.NotificationEvent;
 import org.terasology.notify.ui.RemoveNotificationEvent;
 import org.terasology.nui.Color;
 import org.terasology.nui.FontColor;
-import org.terasology.persistence.TemplateEngine;
-import org.terasology.persistence.TemplateEngineImpl;
-import org.terasology.registry.In;
-import org.terasology.rendering.assets.texture.TextureRegion;
-import org.terasology.rendering.nui.NUIManager;
-import org.terasology.rendering.nui.widgets.browser.data.basic.HTMLLikeParser;
-import org.terasology.rendering.nui.widgets.browser.data.html.HTMLDocument;
-import org.terasology.rendering.nui.widgets.browser.ui.style.ParagraphRenderStyle;
-import org.terasology.unicode.EnclosedAlphanumerics;
-import org.terasology.utilities.Assets;
+import org.terasology.nui.input.Input;
+import org.terasology.nui.input.InputType;
 
 import java.util.HashMap;
 import java.util.List;
@@ -50,24 +50,9 @@ import java.util.Optional;
 @RegisterSystem(RegisterMode.CLIENT)
 public class DialogSystem extends BaseComponentSystem {
 
-    @In
-    private NUIManager nuiManager;
-
-    @In
-    private InputSystem inputSystem;
-
-    @In
-    private AssetManager assetManager;
-
-    @In
-    private LocalPlayer localPlayer;
-
-    private String talkText;
-
-    private ParagraphRenderStyle titleStyle = new DefaultTitleParagraphStyle();
-
-    private Map<String, String> mappings = new HashMap<String, String>();
-    private TemplateEngine templateEngine = new TemplateEngineImpl(id -> {
+    private final ParagraphRenderStyle titleStyle = new DefaultTitleParagraphStyle();
+    private final Map<String, String> mappings = new HashMap<String, String>();
+    private final TemplateEngine templateEngine = new TemplateEngineImpl(id -> {
         String result = mappings.get(id);
         if (result != null) {
             return result;
@@ -75,6 +60,15 @@ public class DialogSystem extends BaseComponentSystem {
             return "?" + id + "?";
         }
     });
+    @In
+    private NUIManager nuiManager;
+    @In
+    private InputSystem inputSystem;
+    @In
+    private AssetManager assetManager;
+    @In
+    private LocalPlayer localPlayer;
+    private String talkText;
 
     @Override
     public void initialise() {

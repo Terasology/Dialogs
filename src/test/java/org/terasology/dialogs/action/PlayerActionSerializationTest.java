@@ -7,12 +7,12 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import org.junit.jupiter.api.Test;
 import org.terasology.ModuleEnvironmentTest;
+import org.terasology.engine.persistence.ModuleContext;
+import org.terasology.engine.persistence.typeHandling.TypeHandler;
+import org.terasology.engine.persistence.typeHandling.TypeHandlerLibrary;
+import org.terasology.engine.persistence.typeHandling.gson.GsonPersistedData;
+import org.terasology.engine.persistence.typeHandling.gson.GsonPersistedDataSerializer;
 import org.terasology.gestalt.naming.Name;
-import org.terasology.persistence.ModuleContext;
-import org.terasology.persistence.typeHandling.TypeHandler;
-import org.terasology.persistence.typeHandling.TypeHandlerLibrary;
-import org.terasology.persistence.typeHandling.gson.GsonPersistedData;
-import org.terasology.persistence.typeHandling.gson.GsonPersistedDataSerializer;
 import org.terasology.reflection.TypeInfo;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -37,8 +37,8 @@ public class PlayerActionSerializationTest extends ModuleEnvironmentTest {
         CloseDialogAction action = new CloseDialogAction();
         String json = serialize(action);
         String expected = "{\n" +
-                              "  \"class\": \"Dialogs:CloseDialogAction\"\n" +
-                              "}";
+                "  \"class\": \"Dialogs:CloseDialogAction\"\n" +
+                "}";
 
         assertEquals(expected, json);
 
@@ -48,8 +48,8 @@ public class PlayerActionSerializationTest extends ModuleEnvironmentTest {
     public void testCloseDialogActionDeserialize() {
         final String contextBasedJson =
                 "{\n" +
-                "\"class\": \"CloseDialogAction\"\n" +
-                "}";
+                        "\"class\": \"CloseDialogAction\"\n" +
+                        "}";
 
         CloseDialogAction action = deserialize(contextBasedJson, CloseDialogAction.class);
 
@@ -61,9 +61,9 @@ public class PlayerActionSerializationTest extends ModuleEnvironmentTest {
         ChangeDialogAction action = new ChangeDialogAction("$prefab");
         String json = serialize(action);
         String expected = "{\n" +
-                              "  \"class\": \"Dialogs:ChangeDialogAction\",\n" +
-                              "  \"prefab\": \"$prefab\"\n" +
-                              "}";
+                "  \"class\": \"Dialogs:ChangeDialogAction\",\n" +
+                "  \"prefab\": \"$prefab\"\n" +
+                "}";
 
         assertEquals(expected, json);
     }
@@ -86,16 +86,16 @@ public class PlayerActionSerializationTest extends ModuleEnvironmentTest {
         NewDialogAction action = new NewDialogAction("$$$");
         String json = serialize(action);
         String expected = "{\n" +
-                              "  \"class\": \"Dialogs:NewDialogAction\",\n" +
-                              "  \"target\": \"$$$\"\n" +
-                              "}";
+                "  \"class\": \"Dialogs:NewDialogAction\",\n" +
+                "  \"target\": \"$$$\"\n" +
+                "}";
 
         assertEquals(expected, json);
     }
 
     @Test
     public void testNewDialogActionDeserialize() {
-      final String contextBasedJson = "{\n" +
+        final String contextBasedJson = "{\n" +
                 "  \"class\": \"NewDialogAction\",\n" +
                 "  \"target\": \"$$$\"\n" +
                 "}";
@@ -108,7 +108,7 @@ public class PlayerActionSerializationTest extends ModuleEnvironmentTest {
 
     private <T extends PlayerAction> String serialize(T action) {
         GsonPersistedData serialized =
-            (GsonPersistedData) playerActionTypeHandler.serialize(action, SERIALIZER);
+                (GsonPersistedData) playerActionTypeHandler.serialize(action, SERIALIZER);
         return GSON.toJson(serialized.getElement());
     }
 

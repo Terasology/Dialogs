@@ -1,24 +1,24 @@
 {
-    "type" : "Dialogs:DialogNotificationOverlay",
-    "contents" : {
-        "type" : "relativeLayout",
-        "skin" : "DialogNotificationOverlay",
-        "contents" : [
-            {
-                "type" : "columnLayout",
-                "contents" : [
-                    {
-                        "type" : "UIList",
-                        "id" : "notificationList"
-                    }
-                ],
-                "layoutInfo" : {
-                    "use-content-width" : true,
-                    "use-content-height" : true,
-                    "position-right" : {},
-                    "position-top" : {}
-                }
-            }
-        ]
-    }
+  "type": "Dialogs:DialogNotificationOverlay",
+  "contents": {
+    "type": "relativeLayout",
+    "skin": "DialogNotificationOverlay",
+    "contents": [
+      {
+        "type": "columnLayout",
+        "contents": [
+          {
+            "type": "UIList",
+            "id": "notificationList"
+          }
+        ],
+        "layoutInfo": {
+          "use-content-width": true,
+          "use-content-height": true,
+          "position-right": {},
+          "position-top": {}
+        }
+      }
+    ]
+  }
 }
