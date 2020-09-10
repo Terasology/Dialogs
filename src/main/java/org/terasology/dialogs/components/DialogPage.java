@@ -3,7 +3,7 @@
 
 package org.terasology.dialogs.components;
 
-import org.terasology.reflection.MappedContainer;
+import org.terasology.nui.reflection.MappedContainer;
 
 import java.util.List;
 

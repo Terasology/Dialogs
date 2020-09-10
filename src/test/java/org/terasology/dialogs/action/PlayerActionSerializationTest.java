@@ -13,7 +13,7 @@ import org.terasology.engine.persistence.typeHandling.TypeHandlerLibrary;
 import org.terasology.engine.persistence.typeHandling.gson.GsonPersistedData;
 import org.terasology.engine.persistence.typeHandling.gson.GsonPersistedDataSerializer;
 import org.terasology.gestalt.naming.Name;
-import org.terasology.reflection.TypeInfo;
+import org.terasology.nui.reflection.TypeInfo;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
