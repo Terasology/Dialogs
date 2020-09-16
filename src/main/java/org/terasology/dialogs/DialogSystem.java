@@ -6,6 +6,8 @@ package org.terasology.dialogs;
 import org.terasology.dialogs.components.DialogComponent;
 import org.terasology.dialogs.components.DialogPage;
 import org.terasology.dialogs.components.DialogResponse;
+import org.terasology.dialogs.notify.ui.NotificationEvent;
+import org.terasology.dialogs.notify.ui.RemoveNotificationEvent;
 import org.terasology.engine.core.SimpleUri;
 import org.terasology.engine.entitySystem.entity.EntityRef;
 import org.terasology.engine.entitySystem.event.ReceiveEvent;
@@ -32,8 +34,6 @@ import org.terasology.engine.rendering.nui.widgets.browser.ui.style.ParagraphRen
 import org.terasology.engine.unicode.EnclosedAlphanumerics;
 import org.terasology.engine.utilities.Assets;
 import org.terasology.gestalt.assets.management.AssetManager;
-import org.terasology.notify.ui.NotificationEvent;
-import org.terasology.notify.ui.RemoveNotificationEvent;
 import org.terasology.nui.Color;
 import org.terasology.nui.FontColor;
 import org.terasology.nui.input.Input;

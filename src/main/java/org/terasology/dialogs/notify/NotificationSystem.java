@@ -1,7 +1,10 @@
 // Copyright 2020 The Terasology Foundation
 // SPDX-License-Identifier: Apache-2.0
-package org.terasology.notify;
+package org.terasology.dialogs.notify;
 
+import org.terasology.dialogs.notify.ui.DialogNotificationOverlay;
+import org.terasology.dialogs.notify.ui.NotificationEvent;
+import org.terasology.dialogs.notify.ui.RemoveNotificationEvent;
 import org.terasology.engine.entitySystem.entity.EntityRef;
 import org.terasology.engine.entitySystem.event.ReceiveEvent;
 import org.terasology.engine.entitySystem.systems.BaseComponentSystem;
@@ -9,9 +12,6 @@ import org.terasology.engine.entitySystem.systems.RegisterMode;
 import org.terasology.engine.entitySystem.systems.RegisterSystem;
 import org.terasology.engine.registry.In;
 import org.terasology.engine.rendering.nui.NUIManager;
-import org.terasology.notify.ui.DialogNotificationOverlay;
-import org.terasology.notify.ui.NotificationEvent;
-import org.terasology.notify.ui.RemoveNotificationEvent;
 
 @RegisterSystem(RegisterMode.CLIENT)
 public class NotificationSystem extends BaseComponentSystem {
