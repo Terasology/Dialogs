@@ -16,7 +16,6 @@ import org.terasology.entitySystem.systems.RegisterMode;
 import org.terasology.entitySystem.systems.RegisterSystem;
 import org.terasology.input.Input;
 import org.terasology.input.InputSystem;
-import org.terasology.input.InputType;
 import org.terasology.logic.characters.CharacterComponent;
 import org.terasology.logic.characters.events.ActivationRequest;
 import org.terasology.logic.common.DisplayNameComponent;
@@ -26,12 +25,12 @@ import org.terasology.network.ClientComponent;
 import org.terasology.network.ColorComponent;
 import org.terasology.notify.ui.NotificationEvent;
 import org.terasology.notify.ui.RemoveNotificationEvent;
+import org.terasology.nui.Color;
+import org.terasology.nui.FontColor;
 import org.terasology.persistence.TemplateEngine;
 import org.terasology.persistence.TemplateEngineImpl;
 import org.terasology.registry.In;
-import org.terasology.nui.FontColor;
 import org.terasology.rendering.assets.texture.TextureRegion;
-import org.terasology.nui.Color;
 import org.terasology.rendering.nui.NUIManager;
 import org.terasology.rendering.nui.widgets.browser.data.basic.HTMLLikeParser;
 import org.terasology.rendering.nui.widgets.browser.data.html.HTMLDocument;
@@ -185,21 +184,20 @@ public class DialogSystem extends BaseComponentSystem {
         updateTalkNotification(character, active);
     }
 
+    private String lookupInteractionButton() {
+        List<Input> inputs = inputSystem.getInputsForBindButton(new SimpleUri("engine:frob"));
+        return inputs.stream().findFirst().map(input -> input.getDisplayName()).orElse("n/a");
+    }
+
     private String createTalkText() {
-        SimpleUri id = new SimpleUri("engine:frob");
-        List<Input> inputs = inputSystem.getInputsForBindButton(id);
         String text = "Press ";
-        for (Input input : inputs) {
-            if (input.getType() == InputType.KEY) {
-                String name = input.getDisplayName();
-                if (name.length() == 1) {
-                    int off = name.charAt(0) - 'A';
-                    char code = (char) (EnclosedAlphanumerics.CIRCLED_LATIN_CAPITAL_LETTER_A + off);
-                    text += FontColor.getColored(String.valueOf(code), new Color(0xFFFF00FF));
-                } else {
-                    text += FontColor.getColored(name, new Color(0xFFFF00FF));
-                }
-            }
+        String button = lookupInteractionButton();
+        if (button.length() == 1) {
+            int off = button.charAt(0) - 'A';
+            char code = (char) (EnclosedAlphanumerics.CIRCLED_LATIN_CAPITAL_LETTER_A + off);
+            text += FontColor.getColored(String.valueOf(code), new Color(0xFFFF00FF));
+        } else {
+            text += FontColor.getColored(button, new Color(0xFFFF00FF));
         }
         text += " to talk";
         return text;
