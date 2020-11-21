@@ -2,7 +2,7 @@
     "type" : "Dialogs:DialogNotificationOverlay",
     "contents" : {
         "type" : "relativeLayout",
-        "skin" : "DialogNotificationOverlay",
+        "skin" : "Dialogs:NotificationOverlay",
         "contents" : [
             {
                 "type" : "columnLayout",
@@ -15,8 +15,10 @@
                 "layoutInfo" : {
                     "use-content-width" : true,
                     "use-content-height" : true,
-                    "position-right" : {},
-                    "position-top" : {}
+                    "position-horizontal-center" : {},
+                    "position-bottom" : {
+                        "offset": 150
+                    }
                 }
             }
         ]

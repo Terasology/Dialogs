@@ -14,7 +14,7 @@ import org.terasology.nui.widgets.UIList;
 
 public class DialogNotificationOverlay extends CoreScreenLayer {
 
-    public static final ResourceUrn ASSET_URI = new ResourceUrn("Dialogs:DialogNotificationOverlay");
+    public static final ResourceUrn ASSET_URI = new ResourceUrn("Dialogs:NotificationOverlay");
 
     @In
     private Time time;
