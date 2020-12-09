@@ -11,6 +11,7 @@ import org.terasology.naming.Name;
 import org.terasology.persistence.ModuleContext;
 import org.terasology.persistence.typeHandling.TypeHandler;
 import org.terasology.persistence.typeHandling.TypeHandlerLibrary;
+import org.terasology.persistence.typeHandling.TypeHandlerLibraryImpl;
 import org.terasology.persistence.typeHandling.gson.GsonPersistedData;
 import org.terasology.persistence.typeHandling.gson.GsonPersistedDataSerializer;
 import org.terasology.reflection.TypeInfo;
@@ -28,7 +29,7 @@ public class PlayerActionSerializationTest extends ModuleEnvironmentTest {
     public void setup() {
         ModuleContext.setContext(moduleManager.getEnvironment().get(new Name("Dialogs")));
 
-        TypeHandlerLibrary typeHandlerLibrary = new TypeHandlerLibrary(moduleManager, typeRegistry);
+        TypeHandlerLibrary typeHandlerLibrary = new TypeHandlerLibraryImpl(moduleManager, typeRegistry);
         playerActionTypeHandler = typeHandlerLibrary.getBaseTypeHandler(TypeInfo.of(PlayerAction.class));
     }
 
