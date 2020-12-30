@@ -1,11 +1,11 @@
 {
-    "id": "Dialogs",
-    "version": "1.0.0",
-    "author": "msteiger",
-    "displayName": "Dialogs",
-    "description": "Add in-game dialogs between player and NPC",
-    "dependencies": [],
-    "serverSideOnly": false,
-    "isAugmentation": true,
-    "isLibrary": true
+  "id": "Dialogs",
+  "version": "1.1.0-SNAPSHOT",
+  "author": "msteiger",
+  "displayName": "Dialogs",
+  "description": "Add in-game dialogs between player and NPC",
+  "dependencies": [],
+  "serverSideOnly": false,
+  "isAugmentation": true,
+  "isLibrary": true
 }
