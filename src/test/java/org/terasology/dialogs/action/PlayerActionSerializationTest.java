@@ -1,4 +1,4 @@
-// Copyright 2020 The Terasology Foundation
+// Copyright 2021 The Terasology Foundation
 // SPDX-License-Identifier: Apache-2.0
 package org.terasology.dialogs.action;
 
@@ -38,8 +38,8 @@ public class PlayerActionSerializationTest extends ModuleEnvironmentTest {
         CloseDialogAction action = new CloseDialogAction();
         String json = serialize(action);
         String expected = "{\n" +
-                              "  \"class\": \"Dialogs:CloseDialogAction\"\n" +
-                              "}";
+                "  \"class\": \"" + CloseDialogAction.class.getName() + "\"\n" +
+                "}";
 
         assertEquals(expected, json);
 
@@ -49,8 +49,8 @@ public class PlayerActionSerializationTest extends ModuleEnvironmentTest {
     public void testCloseDialogActionDeserialize() {
         final String contextBasedJson =
                 "{\n" +
-                "\"class\": \"CloseDialogAction\"\n" +
-                "}";
+                        "\"class\": \"CloseDialogAction\"\n" +
+                        "}";
 
         CloseDialogAction action = deserialize(contextBasedJson, CloseDialogAction.class);
 
@@ -62,9 +62,9 @@ public class PlayerActionSerializationTest extends ModuleEnvironmentTest {
         ChangeDialogAction action = new ChangeDialogAction("$prefab");
         String json = serialize(action);
         String expected = "{\n" +
-                              "  \"class\": \"Dialogs:ChangeDialogAction\",\n" +
-                              "  \"prefab\": \"$prefab\"\n" +
-                              "}";
+                "  \"class\": \"" + ChangeDialogAction.class.getName() + "\",\n" +
+                "  \"prefab\": \"$prefab\"\n" +
+                "}";
 
         assertEquals(expected, json);
     }
@@ -87,17 +87,17 @@ public class PlayerActionSerializationTest extends ModuleEnvironmentTest {
         NewDialogAction action = new NewDialogAction("$$$");
         String json = serialize(action);
         String expected = "{\n" +
-                              "  \"class\": \"Dialogs:NewDialogAction\",\n" +
-                              "  \"target\": \"$$$\"\n" +
-                              "}";
+                "  \"class\": \"Dialogs:NewDialogAction\",\n" +
+                "  \"target\": \"$$$\"\n" +
+                "}";
 
         assertEquals(expected, json);
     }
 
     @Test
     public void testNewDialogActionDeserialize() {
-      final String contextBasedJson = "{\n" +
-                "  \"class\": \"NewDialogAction\",\n" +
+        final String contextBasedJson = "{\n" +
+                "  \"class\": \"" + NewDialogAction.class.getName() + "\",\n" +
                 "  \"target\": \"$$$\"\n" +
                 "}";
 
@@ -109,7 +109,7 @@ public class PlayerActionSerializationTest extends ModuleEnvironmentTest {
 
     private <T extends PlayerAction> String serialize(T action) {
         GsonPersistedData serialized =
-            (GsonPersistedData) playerActionTypeHandler.serialize(action, SERIALIZER);
+                (GsonPersistedData) playerActionTypeHandler.serialize(action, SERIALIZER);
         return GSON.toJson(serialized.getElement());
     }
 
