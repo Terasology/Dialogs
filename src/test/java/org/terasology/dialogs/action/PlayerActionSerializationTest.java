@@ -97,7 +97,7 @@ public class PlayerActionSerializationTest extends ModuleEnvironmentTest {
     @Test
     public void testNewDialogActionDeserialize() {
         final String contextBasedJson = "{\n" +
-                "  \"class\": \"" + NewDialogAction.class.getName() + "\",\n" +
+                "  \"class\": \"NewDialogAction\",\n" +
                 "  \"target\": \"$$$\"\n" +
                 "}";
 
