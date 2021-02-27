@@ -87,7 +87,7 @@ public class PlayerActionSerializationTest extends ModuleEnvironmentTest {
         NewDialogAction action = new NewDialogAction("$$$");
         String json = serialize(action);
         String expected = "{\n" +
-                "  \"class\": \"Dialogs:NewDialogAction\",\n" +
+                "  \"class\": \"" + NewDialogAction.class.getName() + "\",\n" +
                 "  \"target\": \"$$$\"\n" +
                 "}";
 
