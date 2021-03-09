@@ -3,14 +3,14 @@
 
 package org.terasology.notify.ui;
 
+import org.terasology.assets.ResourceUrn;
+import org.terasology.engine.core.Time;
+import org.terasology.engine.registry.In;
+import org.terasology.engine.rendering.nui.CoreScreenLayer;
+import org.terasology.nui.widgets.UIList;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import org.terasology.assets.ResourceUrn;
-import org.terasology.engine.Time;
-import org.terasology.registry.In;
-import org.terasology.rendering.nui.CoreScreenLayer;
-import org.terasology.nui.widgets.UIList;
 
 public class DialogNotificationOverlay extends CoreScreenLayer {
 

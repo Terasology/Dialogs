@@ -7,13 +7,13 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import org.junit.jupiter.api.Test;
 import org.terasology.ModuleEnvironmentTest;
-import org.terasology.engine.module.ModuleContext;
+import org.terasology.engine.core.module.ModuleContext;
+import org.terasology.engine.persistence.typeHandling.TypeHandlerLibraryImpl;
+import org.terasology.engine.persistence.typeHandling.gson.GsonPersistedData;
+import org.terasology.engine.persistence.typeHandling.gson.GsonPersistedDataSerializer;
 import org.terasology.naming.Name;
 import org.terasology.persistence.typeHandling.TypeHandler;
 import org.terasology.persistence.typeHandling.TypeHandlerLibrary;
-import org.terasology.persistence.typeHandling.TypeHandlerLibraryImpl;
-import org.terasology.persistence.typeHandling.gson.GsonPersistedData;
-import org.terasology.persistence.typeHandling.gson.GsonPersistedDataSerializer;
 import org.terasology.reflection.TypeInfo;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

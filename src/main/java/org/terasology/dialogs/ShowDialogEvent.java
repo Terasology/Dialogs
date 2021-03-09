@@ -17,8 +17,8 @@
 package org.terasology.dialogs;
 
 import org.terasology.dialogs.components.DialogComponent;
-import org.terasology.entitySystem.entity.EntityRef;
-import org.terasology.entitySystem.event.Event;
+import org.terasology.engine.entitySystem.entity.EntityRef;
+import org.terasology.engine.entitySystem.event.Event;
 
 /**
  * TODO Type description

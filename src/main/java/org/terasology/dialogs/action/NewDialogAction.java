@@ -17,8 +17,7 @@
 package org.terasology.dialogs.action;
 
 import org.terasology.dialogs.ShowDialogEvent;
-import org.terasology.dialogs.components.DialogComponent;
-import org.terasology.entitySystem.entity.EntityRef;
+import org.terasology.engine.entitySystem.entity.EntityRef;
 
 /**
  *

@@ -16,10 +16,10 @@
 
 package org.terasology.dialogs.components;
 
-import java.util.List;
+import org.terasology.engine.entitySystem.Component;
+import org.terasology.engine.network.Replicate;
 
-import org.terasology.entitySystem.Component;
-import org.terasology.network.Replicate;
+import java.util.List;
 
 /**
  * Use this to add a dialog
