@@ -6,7 +6,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import org.junit.jupiter.api.Test;
-import org.terasology.ModuleEnvironmentTest;
+import org.terasology.engine.ModuleEnvironmentTest;
 import org.terasology.engine.core.module.ModuleContext;
 import org.terasology.engine.persistence.typeHandling.TypeHandlerLibraryImpl;
 import org.terasology.engine.persistence.typeHandling.gson.GsonPersistedData;
