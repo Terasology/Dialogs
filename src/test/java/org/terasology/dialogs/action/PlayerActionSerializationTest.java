@@ -5,30 +5,40 @@ package org.terasology.dialogs.action;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.terasology.engine.ModuleEnvironmentTest;
-import org.terasology.engine.core.module.ModuleContext;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.terasology.engine.core.module.ModuleManager;
 import org.terasology.engine.persistence.typeHandling.TypeHandlerLibraryImpl;
 import org.terasology.engine.persistence.typeHandling.gson.GsonPersistedData;
 import org.terasology.engine.persistence.typeHandling.gson.GsonPersistedDataSerializer;
-import org.terasology.naming.Name;
+import org.terasology.engine.registry.In;
+import org.terasology.moduletestingenvironment.MTEExtension;
+import org.terasology.moduletestingenvironment.extension.Dependencies;
 import org.terasology.persistence.typeHandling.TypeHandler;
 import org.terasology.persistence.typeHandling.TypeHandlerLibrary;
 import org.terasology.reflection.TypeInfo;
+import org.terasology.reflection.TypeRegistry;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class PlayerActionSerializationTest extends ModuleEnvironmentTest {
+@ExtendWith(MTEExtension.class)
+@Dependencies({"Dialogs"})
+public class PlayerActionSerializationTest {
     public static final GsonPersistedDataSerializer SERIALIZER = new GsonPersistedDataSerializer();
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
     private TypeHandler<PlayerAction> playerActionTypeHandler;
 
-    @Override
-    public void setup() {
-        ModuleContext.setContext(moduleManager.getEnvironment().get(new Name("Dialogs")));
+    @In
+    ModuleManager moduleManager;
 
+    @In
+    TypeRegistry typeRegistry;
+
+    @BeforeEach
+    public void setup() {
         TypeHandlerLibrary typeHandlerLibrary = new TypeHandlerLibraryImpl(moduleManager, typeRegistry);
         playerActionTypeHandler = typeHandlerLibrary.getBaseTypeHandler(TypeInfo.of(PlayerAction.class));
     }

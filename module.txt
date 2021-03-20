@@ -4,7 +4,9 @@
   "author": "msteiger",
   "displayName": "Dialogs",
   "description": "Add in-game dialogs between player and NPC",
-  "dependencies": [],
+  "dependencies": [
+      { "id": "ModuleTestingEnvironment", "minVersion": "0.2.2", "optional": true },
+  ],
   "serverSideOnly": false,
   "isAugmentation": true,
   "isLibrary": true
