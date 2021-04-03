@@ -3,7 +3,7 @@
 package org.terasology.dialogs;
 
 import com.google.common.collect.Lists;
-import org.terasology.assets.ResourceUrn;
+import org.terasology.gestalt.assets.ResourceUrn;
 import org.terasology.dialogs.action.PlayerAction;
 import org.terasology.engine.entitySystem.entity.EntityRef;
 import org.terasology.engine.rendering.assets.texture.TextureRegion;
