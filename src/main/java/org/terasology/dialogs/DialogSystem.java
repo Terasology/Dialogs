@@ -3,7 +3,6 @@
 
 package org.terasology.dialogs;
 
-import org.terasology.assets.management.AssetManager;
 import org.terasology.dialogs.components.DialogComponent;
 import org.terasology.dialogs.components.DialogPage;
 import org.terasology.dialogs.components.DialogResponse;
@@ -32,6 +31,7 @@ import org.terasology.engine.rendering.nui.widgets.browser.data.html.HTMLDocumen
 import org.terasology.engine.rendering.nui.widgets.browser.ui.style.ParagraphRenderStyle;
 import org.terasology.engine.unicode.EnclosedAlphanumerics;
 import org.terasology.engine.utilities.Assets;
+import org.terasology.gestalt.assets.management.AssetManager;
 import org.terasology.input.Input;
 import org.terasology.notify.ui.NotificationEvent;
 import org.terasology.notify.ui.RemoveNotificationEvent;
