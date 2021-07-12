@@ -21,6 +21,7 @@ public final class DialogComponent implements Component<DialogComponent> {
 
     /**
      * Finds a page by ID.
+     *
      * @param id the page ID
      * @return the corresponding page or <code>null</code>.
      */
@@ -31,5 +32,11 @@ public final class DialogComponent implements Component<DialogComponent> {
             }
         }
         return null;
+    }
+
+    @Override
+    public void copy(DialogComponent other) {
+        this.firstPage = other.firstPage;
+        this.pages.addAll(other.pages);
     }
 }
