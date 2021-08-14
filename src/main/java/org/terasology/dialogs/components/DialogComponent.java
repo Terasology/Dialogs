@@ -35,7 +35,7 @@ public final class DialogComponent implements Component<DialogComponent> {
     }
 
     @Override
-    public void copy(DialogComponent other) {
+    public void copyFrom(DialogComponent other) {
         this.firstPage = other.firstPage;
         this.pages.addAll(other.pages);
     }
