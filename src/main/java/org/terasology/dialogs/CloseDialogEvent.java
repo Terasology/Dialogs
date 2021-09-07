@@ -16,7 +16,7 @@
 
 package org.terasology.dialogs;
 
-import org.terasology.engine.entitySystem.event.Event;
+import org.terasology.gestalt.entitysystem.event.Event;
 
 /**
  * Fired when the dialog window should close.

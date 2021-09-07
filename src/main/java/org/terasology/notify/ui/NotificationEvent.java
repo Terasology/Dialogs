@@ -16,7 +16,7 @@
 
 package org.terasology.notify.ui;
 
-import org.terasology.engine.entitySystem.event.Event;
+import org.terasology.gestalt.entitysystem.event.Event;
 
 /**
  */
