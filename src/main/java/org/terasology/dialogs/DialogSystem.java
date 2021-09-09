@@ -8,7 +8,6 @@ import org.terasology.dialogs.components.DialogPage;
 import org.terasology.dialogs.components.DialogResponse;
 import org.terasology.engine.core.SimpleUri;
 import org.terasology.engine.entitySystem.entity.EntityRef;
-import org.terasology.engine.entitySystem.event.ReceiveEvent;
 import org.terasology.engine.entitySystem.prefab.Prefab;
 import org.terasology.engine.entitySystem.systems.BaseComponentSystem;
 import org.terasology.engine.entitySystem.systems.RegisterMode;
@@ -32,6 +31,7 @@ import org.terasology.engine.rendering.nui.widgets.browser.ui.style.ParagraphRen
 import org.terasology.engine.unicode.EnclosedAlphanumerics;
 import org.terasology.engine.utilities.Assets;
 import org.terasology.gestalt.assets.management.AssetManager;
+import org.terasology.gestalt.entitysystem.event.ReceiveEvent;
 import org.terasology.input.Input;
 import org.terasology.notify.ui.NotificationEvent;
 import org.terasology.notify.ui.RemoveNotificationEvent;
