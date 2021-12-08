@@ -1,4 +1,4 @@
-// Copyright 2020 The Terasology Foundation
+// Copyright 2021 The Terasology Foundation
 // SPDX-License-Identifier: Apache-2.0
 
 package org.terasology.dialogs;
@@ -63,17 +63,11 @@ public class DialogSystem extends BaseComponentSystem {
 
     private String talkText;
 
-    private ParagraphRenderStyle titleStyle = new DefaultTitleParagraphStyle();
+    private final ParagraphRenderStyle titleStyle = new DefaultTitleParagraphStyle();
 
-    private Map<String, String> mappings = new HashMap<String, String>();
-    private TemplateEngine templateEngine = new TemplateEngineImpl(id -> {
-        String result = mappings.get(id);
-        if (result != null) {
-            return result;
-        } else {
-            return "?" + id + "?";
-        }
-    });
+    private final Map<String, String> mappings = new HashMap<>();
+
+    private final TemplateEngine templateEngine = new TemplateEngineImpl(id -> mappings.getOrDefault(id, "?" + id + "?"));
 
     @Override
     public void initialise() {

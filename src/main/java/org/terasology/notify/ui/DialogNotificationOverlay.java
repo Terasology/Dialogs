@@ -1,12 +1,12 @@
-// Copyright 2020 The Terasology Foundation
+// Copyright 2021 The Terasology Foundation
 // SPDX-License-Identifier: Apache-2.0
 
 package org.terasology.notify.ui;
 
-import org.terasology.gestalt.assets.ResourceUrn;
 import org.terasology.engine.core.Time;
 import org.terasology.engine.registry.In;
 import org.terasology.engine.rendering.nui.CoreScreenLayer;
+import org.terasology.gestalt.assets.ResourceUrn;
 import org.terasology.nui.widgets.UIList;
 
 import java.util.ArrayList;
@@ -19,13 +19,11 @@ public class DialogNotificationOverlay extends CoreScreenLayer {
     @In
     private Time time;
 
-    private UIList<Notification> list;
-
-    private List<Notification> notifications = new ArrayList<>();
+    private final List<Notification> notifications = new ArrayList<>();
 
     @Override
     public void initialise() {
-        list = find("notificationList", UIList.class);
+        UIList<Notification> list = find("notificationList", UIList.class);
         list.setList(notifications);
         list.setItemRenderer(new NotificationRenderer(time));
     }
