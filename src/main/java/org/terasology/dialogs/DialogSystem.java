@@ -1,4 +1,4 @@
-// Copyright 2020 The Terasology Foundation
+// Copyright 2021 The Terasology Foundation
 // SPDX-License-Identifier: Apache-2.0
 
 package org.terasology.dialogs;
@@ -8,7 +8,6 @@ import org.terasology.dialogs.components.DialogPage;
 import org.terasology.dialogs.components.DialogResponse;
 import org.terasology.engine.core.SimpleUri;
 import org.terasology.engine.entitySystem.entity.EntityRef;
-import org.terasology.engine.entitySystem.event.ReceiveEvent;
 import org.terasology.engine.entitySystem.prefab.Prefab;
 import org.terasology.engine.entitySystem.systems.BaseComponentSystem;
 import org.terasology.engine.entitySystem.systems.RegisterMode;
@@ -32,6 +31,7 @@ import org.terasology.engine.rendering.nui.widgets.browser.ui.style.ParagraphRen
 import org.terasology.engine.unicode.EnclosedAlphanumerics;
 import org.terasology.engine.utilities.Assets;
 import org.terasology.gestalt.assets.management.AssetManager;
+import org.terasology.gestalt.entitysystem.event.ReceiveEvent;
 import org.terasology.input.Input;
 import org.terasology.notify.ui.NotificationEvent;
 import org.terasology.notify.ui.RemoveNotificationEvent;
@@ -63,17 +63,11 @@ public class DialogSystem extends BaseComponentSystem {
 
     private String talkText;
 
-    private ParagraphRenderStyle titleStyle = new DefaultTitleParagraphStyle();
+    private final ParagraphRenderStyle titleStyle = new DefaultTitleParagraphStyle();
 
-    private Map<String, String> mappings = new HashMap<String, String>();
-    private TemplateEngine templateEngine = new TemplateEngineImpl(id -> {
-        String result = mappings.get(id);
-        if (result != null) {
-            return result;
-        } else {
-            return "?" + id + "?";
-        }
-    });
+    private final Map<String, String> mappings = new HashMap<>();
+
+    private final TemplateEngine templateEngine = new TemplateEngineImpl(id -> mappings.getOrDefault(id, "?" + id + "?"));
 
     @Override
     public void initialise() {

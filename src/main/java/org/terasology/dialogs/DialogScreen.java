@@ -1,15 +1,15 @@
-// Copyright 2020 The Terasology Foundation
+// Copyright 2021 The Terasology Foundation
 // SPDX-License-Identifier: Apache-2.0
 package org.terasology.dialogs;
 
 import com.google.common.collect.Lists;
-import org.terasology.gestalt.assets.ResourceUrn;
 import org.terasology.dialogs.action.PlayerAction;
 import org.terasology.engine.entitySystem.entity.EntityRef;
 import org.terasology.engine.rendering.assets.texture.TextureRegion;
 import org.terasology.engine.rendering.nui.CoreScreenLayer;
 import org.terasology.engine.rendering.nui.widgets.browser.data.html.HTMLDocument;
 import org.terasology.engine.rendering.nui.widgets.browser.ui.BrowserWidget;
+import org.terasology.gestalt.assets.ResourceUrn;
 import org.terasology.nui.UIWidget;
 import org.terasology.nui.databinding.ReadOnlyBinding;
 import org.terasology.nui.layouts.ColumnLayout;
@@ -40,10 +40,7 @@ public class DialogScreen extends CoreScreenLayer {
     public boolean isModal() {
         return true;
     }
-
-    /**
-     * @param documentData
-     */
+    
     public void setDocument(HTMLDocument documentData) {
         browser.navigateTo(documentData);
     }
@@ -72,7 +69,7 @@ public class DialogScreen extends CoreScreenLayer {
         newButton.setText(text);
         newImage.setImage(image);
         newImage.setFamily("imageColumn");
-        newImage.bindVisible(new ReadOnlyBinding<Boolean>() {
+        newImage.bindVisible(new ReadOnlyBinding<>() {
             @Override
             public Boolean get() {
                 return newButton.getMode().equals(UIButton.HOVER_MODE);

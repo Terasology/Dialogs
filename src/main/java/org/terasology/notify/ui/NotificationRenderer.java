@@ -1,4 +1,4 @@
-// Copyright 2020 The Terasology Foundation
+// Copyright 2021 The Terasology Foundation
 // SPDX-License-Identifier: Apache-2.0
 
 package org.terasology.notify.ui;
@@ -43,8 +43,7 @@ public class NotificationRenderer extends StringTextRenderer<Notification> {
         }
 
         if (timeIn < Notification.FADE_IN_TIME) {
-            float alphaIn = timeIn / (float) Notification.FADE_IN_TIME;
-            return alphaIn;
+            return timeIn / (float) Notification.FADE_IN_TIME;
         }
 
         return 1f;
